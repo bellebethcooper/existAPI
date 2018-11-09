@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		680ECE2421964ADD00A1965E /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680ECE2321964ADD00A1965E /* APIService.swift */; };
 		682E3B9B2195639B0060310A /* ExistAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 682E3B912195639B0060310A /* ExistAPI.framework */; };
 		682E3BA02195639B0060310A /* ExistAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682E3B9F2195639B0060310A /* ExistAPITests.swift */; };
 		682E3BA22195639B0060310A /* ExistAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 682E3B942195639B0060310A /* ExistAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -24,6 +25,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		680ECE2321964ADD00A1965E /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		682E3B912195639B0060310A /* ExistAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ExistAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		682E3B942195639B0060310A /* ExistAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExistAPI.h; sourceTree = "<group>"; };
 		682E3B952195639B0060310A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -61,7 +63,6 @@
 				6DDDB16DF3B2D04FA67B64A5 /* Pods-ExistAPI.debug.xcconfig */,
 				8939D357C186255BA7DBF663 /* Pods-ExistAPI.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -90,6 +91,7 @@
 			children = (
 				682E3B942195639B0060310A /* ExistAPI.h */,
 				682E3B952195639B0060310A /* Info.plist */,
+				680ECE2321964ADD00A1965E /* APIService.swift */,
 			);
 			path = ExistAPI;
 			sourceTree = "<group>";
@@ -174,6 +176,7 @@
 				TargetAttributes = {
 					682E3B902195639B0060310A = {
 						CreatedOnToolsVersion = 10.0;
+						LastSwiftMigration = 1010;
 					};
 					682E3B992195639B0060310A = {
 						CreatedOnToolsVersion = 10.0;
@@ -245,6 +248,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				680ECE2421964ADD00A1965E /* APIService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -393,6 +397,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6DDDB16DF3B2D04FA67B64A5 /* Pods-ExistAPI.debug.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -410,6 +415,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = co.HelloCode.ExistAPI;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -419,6 +425,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8939D357C186255BA7DBF663 /* Pods-ExistAPI.release.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -444,6 +451,7 @@
 		682E3BA92195639B0060310A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 46Q486TD9M;
 				INFOPLIST_FILE = ExistAPITests/Info.plist;
@@ -462,6 +470,7 @@
 		682E3BAA2195639B0060310A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 46Q486TD9M;
 				INFOPLIST_FILE = ExistAPITests/Info.plist;
