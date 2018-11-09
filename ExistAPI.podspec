@@ -15,8 +15,8 @@ Pod::Spec.new do |spec|
     spec.author             = { "Belle Beth Cooper" => "belle@hellocode.co" }
     spec.social_media_url   = "https://twitter.com/bellebcooper"
     spec.source       = { :git => "git@github.com:bellebethcooper/existAPI.git", :tag => "#{spec.version}" }
-    spec.source_files  = "Classes", "ExistAPI/**/*.{swift}"
-    spec.resources = "ExistAPI/**/*.{png,jpeg,jpg,storyboard,xib,xcassets}"
+    spec.source_files  = "ExistAPI/**/*.{swift}"
+    # spec.resources = "ExistAPI/**/*.{png,jpeg,jpg,storyboard,xib,xcassets}"
     spec.swift_version = "4.2"
     spec.framework = "UIKit"
     spec.dependency 'PromiseKit', '~> 6.0'
