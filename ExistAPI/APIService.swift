@@ -13,14 +13,7 @@ enum APIServiceError: Error {
     case failedToCreateURL
 }
 
-enum GetEndpoint {
-    case attributes(names: [String]?, limit: Int?, queries: [[String: Any]]?)
-    case insights(days: Int)
-    case averages(attribute: String?, limit: Int?)
-    case user
-    case correlations
-    case today
-}
+// MARK: - models
 
 class AttributeGroup: Codable {
     let name: String
@@ -105,19 +98,62 @@ class Attribute: Codable {
 }
 
 
+// MARK: ExistAPI
+
 class ExistAPI {
     
-    public func attributes(names: [String]?, limit: Int?, queries: [[String: Any]]?) -> Promise<(data: Data, response: URLResponse)> {
+    var token: String
+    var timeout: TimeInterval
+    
+    init(token: String, timeout: TimeInterval = TimeInterval(30.0)) {
+        self.token = token
+        self.timeout = timeout
+    }
+}
+
+// Get requests
+extension ExistAPI {
+    
+    public func attributes(names: [String]?, limit: Int?, queries: [[String: Any]]?) -> Promise<(attributes: [Attribute], response: URLResponse)> {
         return get(url: "", params: [:])
-            .get({ (data, response) in
+            .then(on: .global(), flags: nil, { (arg) in
+                let (data, response) = arg
                 let json = try JSONSerialization.jsonObject(with: data, options: [])
                 
             })
     }
     
+    public func insights(days: Int) {
+        
+    }
+    
+    public func averages(attribute: String?, limit: Int?) {
+        
+    }
+    
+    public func user() {
+        
+    }
+    
+    public func correlations() {
+        
+    }
+    
+    public func today() {
+        
+    }
+}
+
+// Post requests
+extension ExistAPI {
+    
     public func acquire(names: [String]) -> Promise<(data: Data, response: URLResponse)> {
         return post(url: "", body: nil)
     }
+}
+
+// Private methods
+extension ExistAPI {
     
     private func get(url: String, params: [String: Any]) -> Promise<(data: Data, response: URLResponse)> {
         guard let rq = request(with: url) else {
@@ -162,7 +198,9 @@ class ExistAPI {
     }
     
     private func defaultSession() -> URLSession {
-        // TODO: add timeout as a property to be used here and set in init for this class
-        return URLSession()
+        let config = URLSessionConfiguration()
+        config.timeoutIntervalForRequest = self.timeout
+        config.timeoutIntervalForResource = self.timeout
+        return URLSession(configuration: config)
     }
 }
