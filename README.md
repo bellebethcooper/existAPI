@@ -19,40 +19,46 @@ Get the user's attributes for the past week:
 
 ```swift
 existAPI.attributes()
-.done { attributes, response in
-// handle attribute models here
-}.catch { error in
-// deal with errors
-}
+	.done { attributes, response in
+	// handle attribute models here
+	}.catch { error in
+	// deal with errors
+	}
 ```
 
 Get attributes with some params:
 
 ```swift
 existAPI.attributes(names: ["steps", "mood"], limit: 12)
-.done { attributes, response in
-// handle data here
-}.catch { error in
-// handle error here
-}
+	.done { attributes, response in
+	// handle data here
+	}.catch { error in
+	// handle error here
+	}
 ```
 
 Acquire an attribute:
 
 ```swift
-let endpoint = PostEndpoint.acquire(names: ["steps"])
-existAPI.postTo(endpoint)
-.done { successfullyAcquired, response {
-// deal with data here
-}.catch { error in
-// handle error
-}
+existAPI.acquire(names: ["steps"])
+	.done { successfullyAcquired, response in
+	// deal with data here
+	}.catch { error in
+	// handle error
+	}
 ```
 
 Update data for some attributes:
 
 ```swift
-
+let steps = AttributeData(name: "steps", date: "2018-10-05", value: 3158)
+let distance = AttributeData(name: "steps_distance", date: "2018-10-05", value: 1.2)
+existAPI.update(attributes: [steps, distance])
+	.done { successfullyUpdated, failed in
+	// if some attributes failed but some succeeded, check failures here
+	}.catch { error in
+	// handle error
+	}
 ```
 
 
