@@ -61,7 +61,6 @@ existAPI.update(attributes: [steps, distance])
 	}
 ```
 
-
 ## Usage
 
 ExistAPI uses PromiseKit to handle asynchronous networking tasks. If you haven't used promises before, the PromiseKit docs are very good, and will help you understand the basic usage. Essentially, promises let you act on the result of an asynchronous task as if it were synchronous, making your code easier to write, read, and maintain.
@@ -87,4 +86,36 @@ Create an instance of ExistAPI with your token, and optionally set a specific ti
 
 ```swift
 let existAPI = ExistAPI(token: yourToken, timeout: 40)
+```
+
+### Chaining
+
+Because ExistAPI uses PromiseKit, you can chain multiple calls together. Here are some examples:
+
+Since we need to first acquire attributes in a user's Exist account before we're able to update those attributes, we can chain these two steps together the first time we want to update an attribute with data:
+
+```swift
+existAPI.acquire(names: ["mood", "mood_note", "weight"]
+	.then { successfullyAcquired, response in
+		existAPI.update(attributes: successfullyAcquired.map { $0.name }
+		.done { successfullyUpdated, failed in
+		// handle success
+		}.catch { error in
+		// handle error
+		}
+```
+
+PromiseKit lets us use `when` to only act on a bunch of promises when they're all completed, and to handle errors in any of those promises just once. Using `when` lets us compile a bunch of calls to the Exist API and act on all the returned data at once:
+
+```swift
+let insightsPromise = existAPI.insights(days: 30)
+let averagesPromise = existAPI.averages(limit: 30)
+let correlationsPromise = existAPI.correlations
+
+when(fulfilled: [insightsPromise, averagesPromise, correlationsPromise])
+	.done { insights, averages, correlations in
+	// handle data
+	}.catch { error in
+	// handle errors just once for all these promises
+	}
 ```

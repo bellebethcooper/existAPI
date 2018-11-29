@@ -144,11 +144,25 @@ extension ExistAPI {
     }
 }
 
+class AttributeData: Codable {
+    let name: String
+    let date: String
+    let value: ValueObject
+}
+
 // Post requests
 extension ExistAPI {
     
     public func acquire(names: [String]) -> Promise<(data: Data, response: URLResponse)> {
         return post(url: "", body: nil)
+    }
+    
+    public func release(names: [String]) {
+        
+    }
+    
+    public func update(attributes: [AttributeData]) {
+        
     }
 }
 
