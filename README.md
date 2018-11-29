@@ -4,11 +4,11 @@ A framework for working with the [Exist](https://exist.io/) API on iOS.
 
 ## Installation
 
-via Cocoapods
+via Cocoapods, details to come
 
 ## Quick examples
 
-Get a token from the Exist API to authorise your user. Then create an API instance:
+Get a token from the Exist API to authorise your user ([details in the Exist API docs here](http://developer.exist.io/#oauth2-authentication)). Then create an API instance:
 
 ```swift
 let token = getTokenFromAuthProcess()

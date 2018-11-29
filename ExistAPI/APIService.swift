@@ -115,8 +115,8 @@ class ExistAPI {
 extension ExistAPI {
     
     public func attributes(names: [String]?, limit: Int?, queries: [[String: Any]]?) -> Promise<(attributes: [Attribute], response: URLResponse)> {
-        return get(url: "", params: [:])
-            .then(on: .global(), flags: nil, { (arg) in
+        return get(url: "", params: [String:Any]())
+            .then(on: DispatchQueue.global(), flags: nil, { (arg) -> Promise<(attributes: [Attribute], response: URLResponse)> in
                 let (data, response) = arg
                 let json = try JSONSerialization.jsonObject(with: data, options: [])
                 
