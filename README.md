@@ -88,6 +88,32 @@ Create an instance of ExistAPI with your token, and optionally set a specific ti
 let existAPI = ExistAPI(token: yourToken, timeout: 40)
 ```
 
+### GET requests
+
+Get the user's attributes:
+
+```swift
+existAPI.attributes()
+	.then { attributes in
+	// handle data
+	}
+```
+
+Pass in some parameters when getting attributes:
+
+```swift
+existAPI.attributes(names: ["steps", "weight"], limit: 14)
+	.then { attributes in
+	// handle data
+	}
+```
+
+
+
+### POST requests
+
+Not supported yet.
+
 ### Chaining
 
 Because ExistAPI uses PromiseKit, you can chain multiple calls together. Here are some examples:
