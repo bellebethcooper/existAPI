@@ -13,8 +13,9 @@
 		682E3BA22195639B0060310A /* ExistAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 682E3B942195639B0060310A /* ExistAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		68844B4421B1076A004EDCD0 /* APIService+POST.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68844B4321B1076A004EDCD0 /* APIService+POST.swift */; };
 		68844B4621B1078F004EDCD0 /* APIService+GET.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68844B4521B1078F004EDCD0 /* APIService+GET.swift */; };
-		68844B4821B107A8004EDCD0 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68844B4721B107A8004EDCD0 /* Models.swift */; };
+		68844B4821B107A8004EDCD0 /* Attribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68844B4721B107A8004EDCD0 /* Attribute.swift */; };
 		68844B4A21B10D98004EDCD0 /* DateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68844B4921B10D98004EDCD0 /* DateUtils.swift */; };
+		6894F07821B1165D0010299E /* Insight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6894F07721B1165D0010299E /* Insight.swift */; };
 		913B08AA561BFCDB2370DAAC /* libPods-ExistAPI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B6BE30B5C22B5D6AB7232F45 /* libPods-ExistAPI.a */; };
 /* End PBXBuildFile section */
 
@@ -38,8 +39,9 @@
 		682E3BA12195639B0060310A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		68844B4321B1076A004EDCD0 /* APIService+POST.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+POST.swift"; sourceTree = "<group>"; };
 		68844B4521B1078F004EDCD0 /* APIService+GET.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+GET.swift"; sourceTree = "<group>"; };
-		68844B4721B107A8004EDCD0 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		68844B4721B107A8004EDCD0 /* Attribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attribute.swift; sourceTree = "<group>"; };
 		68844B4921B10D98004EDCD0 /* DateUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUtils.swift; sourceTree = "<group>"; };
+		6894F07721B1165D0010299E /* Insight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Insight.swift; sourceTree = "<group>"; };
 		6DDDB16DF3B2D04FA67B64A5 /* Pods-ExistAPI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ExistAPI.debug.xcconfig"; path = "Target Support Files/Pods-ExistAPI/Pods-ExistAPI.debug.xcconfig"; sourceTree = "<group>"; };
 		8939D357C186255BA7DBF663 /* Pods-ExistAPI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ExistAPI.release.xcconfig"; path = "Target Support Files/Pods-ExistAPI/Pods-ExistAPI.release.xcconfig"; sourceTree = "<group>"; };
 		B6BE30B5C22B5D6AB7232F45 /* libPods-ExistAPI.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ExistAPI.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -102,7 +104,7 @@
 				680ECE2321964ADD00A1965E /* APIService.swift */,
 				68844B4321B1076A004EDCD0 /* APIService+POST.swift */,
 				68844B4521B1078F004EDCD0 /* APIService+GET.swift */,
-				68844B4721B107A8004EDCD0 /* Models.swift */,
+				6894F07621B116520010299E /* Models */,
 				68844B4921B10D98004EDCD0 /* DateUtils.swift */,
 			);
 			path = ExistAPI;
@@ -115,6 +117,15 @@
 				682E3BA12195639B0060310A /* Info.plist */,
 			);
 			path = ExistAPITests;
+			sourceTree = "<group>";
+		};
+		6894F07621B116520010299E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				68844B4721B107A8004EDCD0 /* Attribute.swift */,
+				6894F07721B1165D0010299E /* Insight.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		D6BA8F9170B6C1ED37462B78 /* Frameworks */ = {
@@ -260,11 +271,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6894F07821B1165D0010299E /* Insight.swift in Sources */,
 				68844B4421B1076A004EDCD0 /* APIService+POST.swift in Sources */,
 				68844B4621B1078F004EDCD0 /* APIService+GET.swift in Sources */,
 				68844B4A21B10D98004EDCD0 /* DateUtils.swift in Sources */,
 				680ECE2421964ADD00A1965E /* APIService.swift in Sources */,
-				68844B4821B107A8004EDCD0 /* Models.swift in Sources */,
+				68844B4821B107A8004EDCD0 /* Attribute.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
