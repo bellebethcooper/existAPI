@@ -108,7 +108,23 @@ existAPI.attributes(names: ["steps", "weight"], limit: 14)
 	}
 ```
 
+Get the user's insights:
 
+```swift
+existAPI.insights(limit: 14, minDate: Date())
+	.then { insights, response in
+	// handle data
+	}
+```
+
+Get the user's correlations:
+
+```swift
+existAPI.correlations(for: "steps", limit: 30, latest: true)
+	.then { correlations, response in
+	// handle data
+	}
+```
 
 ### POST requests
 
