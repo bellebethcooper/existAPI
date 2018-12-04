@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		680ECE2421964ADD00A1965E /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680ECE2321964ADD00A1965E /* APIService.swift */; };
+		680FD83D21B6446D00F6B5EC /* Average.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680FD83C21B6446D00F6B5EC /* Average.swift */; };
+		680FD83F21B6496100F6B5EC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680FD83E21B6496100F6B5EC /* User.swift */; };
 		682E3B9B2195639B0060310A /* ExistAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 682E3B912195639B0060310A /* ExistAPI.framework */; };
 		682E3BA02195639B0060310A /* ExistAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682E3B9F2195639B0060310A /* ExistAPITests.swift */; };
 		682E3BA22195639B0060310A /* ExistAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 682E3B942195639B0060310A /* ExistAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -32,6 +34,8 @@
 
 /* Begin PBXFileReference section */
 		680ECE2321964ADD00A1965E /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		680FD83C21B6446D00F6B5EC /* Average.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Average.swift; sourceTree = "<group>"; };
+		680FD83E21B6496100F6B5EC /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		682E3B912195639B0060310A /* ExistAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ExistAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		682E3B942195639B0060310A /* ExistAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExistAPI.h; sourceTree = "<group>"; };
 		682E3B952195639B0060310A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -127,6 +131,8 @@
 				68844B4721B107A8004EDCD0 /* Attribute.swift */,
 				6894F07721B1165D0010299E /* Insight.swift */,
 				6894F07921B1177D0010299E /* Correlation.swift */,
+				680FD83C21B6446D00F6B5EC /* Average.swift */,
+				680FD83E21B6496100F6B5EC /* User.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -277,7 +283,9 @@
 				6894F07821B1165D0010299E /* Insight.swift in Sources */,
 				6894F07A21B1177D0010299E /* Correlation.swift in Sources */,
 				68844B4421B1076A004EDCD0 /* APIService+POST.swift in Sources */,
+				680FD83D21B6446D00F6B5EC /* Average.swift in Sources */,
 				68844B4621B1078F004EDCD0 /* APIService+GET.swift in Sources */,
+				680FD83F21B6496100F6B5EC /* User.swift in Sources */,
 				68844B4A21B10D98004EDCD0 /* DateUtils.swift in Sources */,
 				680ECE2421964ADD00A1965E /* APIService.swift in Sources */,
 				68844B4821B107A8004EDCD0 /* Attribute.swift in Sources */,
