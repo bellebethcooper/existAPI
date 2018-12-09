@@ -1,4 +1,24 @@
 PODS:
+  - EarlGrey (1.12.1)
+  - EarlGreySnapshots (0.0.4):
+    - EarlGrey (~> 1.12)
+    - FBSnapshotTestCase (~> 2.1)
+  - FBSnapshotTestCase (2.1.4):
+    - FBSnapshotTestCase/SwiftSupport (= 2.1.4)
+  - FBSnapshotTestCase/Core (2.1.4)
+  - FBSnapshotTestCase/SwiftSupport (2.1.4):
+    - FBSnapshotTestCase/Core
+  - iOSSnapshotTestCase (4.0.0):
+    - iOSSnapshotTestCase/SwiftSupport (= 4.0.0)
+  - iOSSnapshotTestCase/Core (4.0.0)
+  - iOSSnapshotTestCase/SwiftSupport (4.0.0):
+    - iOSSnapshotTestCase/Core
+  - Nimble (7.1.3)
+  - Nimble-Snapshots (6.9.0):
+    - Nimble-Snapshots/Core (= 6.9.0)
+  - Nimble-Snapshots/Core (6.9.0):
+    - iOSSnapshotTestCase (~> 4.0)
+    - Nimble (~> 7.0)
   - PromiseKit (6.5.2):
     - PromiseKit/CorePromise (= 6.5.2)
     - PromiseKit/Foundation (= 6.5.2)
@@ -8,17 +28,41 @@ PODS:
     - PromiseKit/CorePromise
   - PromiseKit/UIKit (6.5.2):
     - PromiseKit/CorePromise
+  - Quick (1.3.2)
+  - Sencha (0.4.1):
+    - EarlGrey (~> 1.12.1)
 
 DEPENDENCIES:
+  - EarlGreySnapshots (~> 0.0.4)
+  - Nimble (~> 7.1.1)
+  - Nimble-Snapshots (~> 6.3)
   - PromiseKit (~> 6.0)
+  - Quick (~> 1.2)
+  - Sencha (~> 0.4.1)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - EarlGrey
+    - EarlGreySnapshots
+    - FBSnapshotTestCase
+    - iOSSnapshotTestCase
+    - Nimble
+    - Nimble-Snapshots
     - PromiseKit
+    - Quick
+    - Sencha
 
 SPEC CHECKSUMS:
+  EarlGrey: f7774b813c888ebdb9a21e612d67874d17d5a326
+  EarlGreySnapshots: ea06383fb185c9d6a6a1d0d55a5b143f755664df
+  FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
+  iOSSnapshotTestCase: 711379b19f69a22c131527df862352c877c2773c
+  Nimble: 2839b01d1b31f6a6a7777a221f0d91cf52e8e27b
+  Nimble-Snapshots: 79394f8d0aea3df54bd5ff78ee9dff05a523a09c
   PromiseKit: 27c1601bfb73405871b805bcb8cf7e55c4dad3db
+  Quick: 2623cb30d7a7f41ca62f684f679586558f483d46
+  Sencha: cf81b130dc159e4fdf094777f6f3935116636202
 
-PODFILE CHECKSUM: 615c1a00f1ded00522739a3cdcf41b9f6d597b97
+PODFILE CHECKSUM: 1fff071cc8fc1c4c429effd90a5f6775b63a6b9e
 
 COCOAPODS: 1.6.0.beta.2
