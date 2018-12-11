@@ -11,7 +11,7 @@ import PromiseKit
 
 
 // Get requests
-extension ExistAPI {
+public extension ExistAPI {
     
     /// Return all the user's attributes with the last week’s values by default.
     /// Exist API docs for attributes: http://developer.exist.io/#attributes6

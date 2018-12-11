@@ -9,7 +9,7 @@
 import Foundation
 
 
-class Attribute: Codable {
+public class Attribute: Codable {
     let name: String
     let label: String
     let group: AttributeGroup
@@ -21,18 +21,18 @@ class Attribute: Codable {
     let values: [AttributeData]
 }
 
-class AttributeGroup: Codable {
+public class AttributeGroup: Codable {
     let name: String
     let label: String
     let priority: Int
 }
 
-class AttributeData: Codable {
+public class AttributeData: Codable {
     let value: ValueType
     let date: Date
 }
 
-enum ValueType: Codable {
+public enum ValueType: Codable {
     case string(String)
     case int(Int)
     case float(Float)

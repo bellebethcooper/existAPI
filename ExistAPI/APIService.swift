@@ -15,13 +15,13 @@ enum APIServiceError: Error {
 
 // MARK: ExistAPI
 
-class ExistAPI {
+public class ExistAPI {
     
     let baseURL = "https://exist.io/api/1/users/$self/"
     var token: String
     var timeout: TimeInterval
     
-    init(token: String, timeout: TimeInterval = TimeInterval(30.0)) {
+    public init(token: String, timeout: TimeInterval = TimeInterval(30.0)) {
         self.token = token
         self.timeout = timeout
     }
