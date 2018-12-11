@@ -44,9 +44,9 @@ public enum ValueType: Codable {
         case string, int, float, periodMin, minFromMidnight, minFromMidday
     }
     
-    enum CodingError: Error { case decoding(String) }
+    public enum CodingError: Error { case decoding(String) }
     
-    func encode(to encoder: Encoder) throws {
+    public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         switch self {
         case .string(let value):
@@ -64,7 +64,7 @@ public enum ValueType: Codable {
         }
     }
     
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
         if let stringValue = try? container.decode(String.self, forKey: .string) {

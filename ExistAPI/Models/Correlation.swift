@@ -9,7 +9,7 @@
 import Foundation
 
 
-class Correlation: Codable {
+public class Correlation: Codable {
     let date: Date
     let period: Int
     let firstAttribute: String
@@ -27,7 +27,7 @@ class Correlation: Codable {
     let rating: CorrelationRating
 }
 
-class CorrelationRating: Codable {
+public class CorrelationRating: Codable {
     let positive: Bool
     let rating: String
 }

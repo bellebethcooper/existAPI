@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Average: Codable {
+public class Average: Codable {
     let attribute: String
     let date: Date
     let overall: ValueType

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class User: Codable {
+public class User: Codable {
     let id: Int
     let username: String
     let firstName: String

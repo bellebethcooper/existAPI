@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Insight: Codable {
+public class Insight: Codable {
     let created: Date
     let targetDate: Date
     let type: InsightType
@@ -16,21 +16,21 @@ class Insight: Codable {
     let text: String
 }
 
-class InsightType: Codable {
+public class InsightType: Codable {
     let name: String
     let period: Int
     let priority: Int
     let attribute: InsightAttribute
 }
 
-class InsightAttribute: Codable {
+public class InsightAttribute: Codable {
     let name: String
     let label: String
     let group: AttributeGroup
     let priority: Int
 }
 
-class InsightGroup: Codable {
+public class InsightGroup: Codable {
     let name: String
     let label: String
     let priority: Int
