@@ -72,7 +72,9 @@ Please see the examples for more ideas on how to use ExistAPI's promises.
 ### Requirements
 
 - Swift 4.0
-- An Exist account
+- iOS 12
+- An [Exist](https://exist.io) account
+- Cocoapods
 
 ### Getting started
 
@@ -161,3 +163,8 @@ when(fulfilled: [insightsPromise, averagesPromise, correlationsPromise])
 	// handle errors just once for all these promises
 	}
 ```
+
+### TODO
+
+- [x] GET requests
+- [ ] POST requests
