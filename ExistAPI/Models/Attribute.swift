@@ -9,16 +9,69 @@
 import Foundation
 
 
-public class Attribute: Codable {
-    let name: String
+public protocol AttributeValues {
+    func getIntValues() throws -> [IntValue]
+    func getStringValues() throws -> [StringValue]
+}
+
+public enum AttributeError: Error {
+    case wrongAttributeValueType
+}
+
+public class Attribute: Codable, AttributeValues {
+    let attribute: String
     let label: String
     let group: AttributeGroup
     let priority: Int
-    let serviceName: String
+    let service: String
     let valueType: Int
     let valueTypeDescription: String
-    let isPrivate: Bool
-    let values: [AttributeData]
+    private let values: [AttributeData]
+    
+    public func getIntValues() throws -> [IntValue] {
+        guard self.valueType == 0 else {
+            // not an Int
+            throw AttributeError.wrongAttributeValueType
+        }
+        return self.values.compactMap { (attributeData) -> IntValue? in
+            guard let string = attributeData.value else {
+                return IntValue(value: nil, date: attributeData.date)
+            }
+            guard let v: Int = Int(string) else { return nil }
+            return IntValue(value: v, date: attributeData.date)
+        }
+    }
+    
+    public func getStringValues() throws -> [StringValue] {
+        guard self.valueType == 2 else {
+            // not a string
+            throw AttributeError.wrongAttributeValueType
+        }
+        return self.values.compactMap { (attributeData) -> StringValue? in
+            guard let string = attributeData.value else {
+                return StringValue(value: nil, date: attributeData.date)
+            }
+            return StringValue(value: string, date: attributeData.date)
+        }
+    }
+}
+
+public protocol ValueObject {
+    associatedtype ValueType
+    var value: ValueType? { get }
+    var date: Date { get }
+}
+
+public struct IntValue: ValueObject {
+    public typealias ValueType = Int
+    public var value: Int?
+    public var date: Date
+}
+
+public struct StringValue: ValueObject {
+    public typealias ValueType = String
+    public var value: String?
+    public var date: Date
 }
 
 public class AttributeGroup: Codable {
@@ -27,66 +80,31 @@ public class AttributeGroup: Codable {
     let priority: Int
 }
 
-public class AttributeData: Codable {
-    let value: ValueType
+public struct AttributeData: Codable {
+    var value: String?
     let date: Date
-}
-
-public enum ValueType: Codable {
-    case string(String)
-    case int(Int)
-    case float(Float)
-    case periodMin(Int)
-    case minFromMidnight(Int)
-    case minFromMidday(Int)
     
     enum CodingKeys: CodingKey {
-        case string, int, float, periodMin, minFromMidnight, minFromMidday
+        case value
+        case date
     }
-    
-    public enum CodingError: Error { case decoding(String) }
     
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        switch self {
-        case .string(let value):
-            try container.encode(value, forKey: .string)
-        case .int(let value):
-            try container.encode(value, forKey: .int)
-        case .float(let value):
-            try container.encode(value, forKey: .float)
-        case .periodMin(let value):
-            try container.encode(value, forKey: .periodMin)
-        case .minFromMidnight(let value):
-            try container.encode(value, forKey: .minFromMidnight)
-        case .minFromMidday(let value):
-            try container.encode(value, forKey: .minFromMidday)
+        try container.encode(self.value, forKey: .value)
+        try container.encode(self.date, forKey: .date)
         }
-    }
     
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        
-        if let stringValue = try? container.decode(String.self, forKey: .string) {
-            self = .string(stringValue)
-            return
+        self.date = try container.decode(Date.self, forKey: .date)
+        var stringValue: String? = nil
+        if let string = try? container.decode(String.self, forKey: .value) {
+            stringValue = string
         }
-        
-        if let intValue = try? container.decode(Int.self, forKey: .int) {
-            self = .int(intValue)
-            return
+        if let number = try? container.decode(Float.self, forKey: .value) {
+            stringValue = String(number)
         }
-        
-        if let floatValue = try? container.decode(Float.self, forKey: .float) {
-            self = .float(floatValue)
-            return
-        }
-        
-        if let periodValue = try? container.decode(Int.self, forKey: .periodMin) {
-            self = .periodMin(periodValue)
-            return
-        }
-        
-        throw CodingError.decoding("Decoding Failed. \(container)")
+        self.value = stringValue
     }
 }

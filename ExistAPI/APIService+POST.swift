@@ -20,7 +20,7 @@ class AttributeUpdate: Codable {
 extension ExistAPI {
     
     public func acquire(names: [String]) -> Promise<(data: Data, response: URLResponse)> {
-        return post(url: "", body: nil)
+        return post(url: "", body: nil, queries: nil)
     }
     
     public func release(names: [String]) {

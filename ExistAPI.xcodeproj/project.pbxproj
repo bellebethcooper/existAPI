@@ -212,7 +212,7 @@
 		682E3B882195639B0060310A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1000;
+				LastSwiftUpdateCheck = 1010;
 				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = "Hello Code";
 				TargetAttributes = {
@@ -231,6 +231,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 682E3B872195639B0060310A;
 			productRefGroup = 682E3B922195639B0060310A /* Products */;

@@ -33,12 +33,19 @@ public extension ExistAPI {
         if let max = maxDate {
             params["date_min"] = ISOstring(from: max)
         }
-        return get(url: baseURL+"attributes/", params: params)
+        var url = baseURL+"attributes/"
+        var queries = [URLQueryItem]()
+        if let names = names {
+            queries.append(URLQueryItem(name: "attributes", value: names.joined(separator: ",")))
+        }
+        return get(url: url, params: params, queries: queries)
             .then(on: DispatchQueue.global(), flags: nil, { (arg) -> Promise<(attributes: [Attribute], response: URLResponse)> in
                 let (data, response) = arg
+                let string = String(data: data, urlResponse: response)
+                print("string: \(string)")
                 let decoder = JSONDecoder()
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
-                decoder.dateDecodingStrategy = .iso8601
+                decoder.dateDecodingStrategy = .formatted(DateFormatter.iso8601DateOnly)
                 let attributes = try decoder.decode([Attribute].self, from: data)
                 return Promise { seal in
                     seal.fulfill((attributes, response))
@@ -70,12 +77,12 @@ public extension ExistAPI {
         if let max = maxDate {
             params["date_min"] = ISOstring(from: max)
         }
-        return get(url: baseURL+"insights/", params: [String:Any]())
+        return get(url: baseURL+"insights/", params: [String:Any](), queries: nil)
             .then(on: DispatchQueue.global(), flags: nil, { (arg) -> Promise<(insights: [Insight], response: URLResponse)> in
                 let (data, response) = arg
                 let decoder = JSONDecoder()
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
-                decoder.dateDecodingStrategy = .iso8601
+                decoder.dateDecodingStrategy = .formatted(DateFormatter.iso8601DateOnly)
                 let insights = try decoder.decode([Insight].self, from: data)
                 return Promise { seal in
                     seal.fulfill((insights, response))
@@ -111,12 +118,12 @@ public extension ExistAPI {
         if let attribute = attribute {
             urlString += "attribute/\(attribute)/"
         }
-        return get(url: urlString, params: params)
+        return get(url: urlString, params: params, queries: nil)
             .then(on: DispatchQueue.global(), flags: nil, { (arg) -> Promise<(averages: [Average], response: URLResponse)> in
                 let (data, response) = arg
                 let decoder = JSONDecoder()
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
-                decoder.dateDecodingStrategy = .iso8601
+                decoder.dateDecodingStrategy = .formatted(DateFormatter.iso8601DateOnly)
                 let averages = try decoder.decode([Average].self, from: data)
                 return Promise { seal in
                     seal.fulfill((averages, response))
@@ -154,12 +161,12 @@ public extension ExistAPI {
         } else {
             urlString += "strongest/"
         }
-        return get(url: urlString, params: [String:Any]())
+        return get(url: urlString, params: [String:Any](), queries: nil)
             .then(on: DispatchQueue.global(), flags: nil, { (arg) -> Promise<(correlations: [Correlation], response: URLResponse)> in
                 let (data, response) = arg
                 let decoder = JSONDecoder()
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
-                decoder.dateDecodingStrategy = .iso8601
+                decoder.dateDecodingStrategy = .formatted(DateFormatter.iso8601DateOnly)
                 let correlations = try decoder.decode([Correlation].self, from: data)
                 return Promise { seal in
                     seal.fulfill((correlations, response))
@@ -172,12 +179,12 @@ public extension ExistAPI {
     ///
     /// - Returns: A Promise with a User model and URLResponse, if no errors were caught
     public func user() -> Promise<(user: User, response: URLResponse)> {
-        return get(url: baseURL+"profile/", params: nil)
+        return get(url: baseURL+"profile/", params: nil, queries: nil)
             .then(on: DispatchQueue.global(), flags: nil, { (arg) -> Promise<(user: User, response: URLResponse)> in
                 let (data, response) = arg
                 let decoder = JSONDecoder()
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
-                decoder.dateDecodingStrategy = .iso8601
+                decoder.dateDecodingStrategy = .formatted(DateFormatter.iso8601DateOnly)
                 let user = try decoder.decode(User.self, from: data)
                 return Promise { seal in
                     seal.fulfill((user, response))

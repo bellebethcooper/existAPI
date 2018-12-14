@@ -21,7 +21,8 @@ public class ExistAPI {
     var token: String
     var timeout: TimeInterval
     
-    public init(token: String, timeout: TimeInterval = TimeInterval(30.0)) {
+    public init(token: String,
+                timeout: TimeInterval = TimeInterval(30.0)) {
         self.token = token
         self.timeout = timeout
     }
@@ -30,8 +31,8 @@ public class ExistAPI {
 // Private methods
 internal extension ExistAPI {
     
-    internal func get(url: String, params: [String: Any]?) -> Promise<(data: Data, response: URLResponse)> {
-        guard let rq = request(with: url) else {
+    internal func get(url: String, params: [String: Any]?, queries: [URLQueryItem]?) -> Promise<(data: Data, response: URLResponse)> {
+        guard let rq = request(with: url, queries: queries) else {
             return Promise { seal in
                 seal.reject(APIServiceError.failedToCreateURL)
             }
@@ -40,8 +41,8 @@ internal extension ExistAPI {
         return session.dataTask(.promise, with: rq).validate()
     }
     
-    internal func post(url: String, body: [String: Any]?) -> Promise<(data: Data, response: URLResponse)> {
-        guard let rq = request(with: url) else {
+    internal func post(url: String, body: [String: Any]?, queries: [URLQueryItem]?) -> Promise<(data: Data, response: URLResponse)> {
+        guard let rq = request(with: url, queries: queries) else {
             return Promise { seal in
                 seal.reject(APIServiceError.failedToCreateURL)
             }
@@ -64,18 +65,37 @@ internal extension ExistAPI {
         }
     }
     
-    internal func request(with url: String) -> URLRequest? {
-        guard let URL = URL(string: url) else {
+    internal func request(with url: String, queries: [URLQueryItem]?) -> URLRequest? {
+        var urlComps = URLComponents(string: url)
+        urlComps?.queryItems = queries
+        guard let comps = urlComps,
+            let finalURL = comps.url else {
             print("APIService get - failed to create URL from \(url)")
             return nil
         }
-        return URLRequest(url: URL)
+        
+        var request = URLRequest(url: finalURL)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        request.setValue("Bearer "+self.token, forHTTPHeaderField: "Authorization")
+        return request
     }
     
     internal func defaultSession() -> URLSession {
-        let config = URLSessionConfiguration()
+        let config = URLSessionConfiguration.default
         config.timeoutIntervalForRequest = self.timeout
         config.timeoutIntervalForResource = self.timeout
         return URLSession(configuration: config)
     }
+}
+
+internal extension DateFormatter {
+    static let iso8601DateOnly: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.calendar = Calendar(identifier: .iso8601)
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        return formatter
+    }()
 }

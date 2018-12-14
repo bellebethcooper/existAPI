@@ -11,12 +11,12 @@ import Foundation
 public class Average: Codable {
     let attribute: String
     let date: Date
-    let overall: ValueType
-    let monday: ValueType
-    let tuesday: ValueType
-    let wednesday: ValueType
-    let thursday: ValueType
-    let friday: ValueType
-    let saturday: ValueType
-    let sunday: ValueType
+//    let overall: ValueType
+//    let monday: ValueType
+//    let tuesday: ValueType
+//    let wednesday: ValueType
+//    let thursday: ValueType
+//    let friday: ValueType
+//    let saturday: ValueType
+//    let sunday: ValueType
 }

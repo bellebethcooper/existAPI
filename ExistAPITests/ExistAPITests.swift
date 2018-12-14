@@ -10,25 +10,32 @@ import XCTest
 @testable import ExistAPI
 
 class ExistAPITests: XCTestCase {
-
+    var api: ExistAPI = ExistAPI(token: "da50757e605c7918738ee93e00fa10c83321ca85")
+    
     override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
     }
 
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        
     }
 
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    func testAttributesReturnsAResponse() {
+        let expectation = XCTestExpectation()
+        self.api.attributes(names: ["steps"],
+                            limit: 2,
+                            minDate: nil,
+                            maxDate: nil)
+            .done { (attributes, response) in
+                attributes.forEach({ (attribute) in
+                    let values = try! attribute.getIntValues()
+                    print("att: \(attribute.attribute) values: \(values)")
+                })
+//                print("resp: \(response)")
+                expectation.fulfill()
+            }.catch { (error) in
+                print("error: \(error)")
         }
+        self.wait(for: [expectation], timeout: TimeInterval(10))
     }
 
 }
