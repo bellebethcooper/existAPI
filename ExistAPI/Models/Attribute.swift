@@ -18,18 +18,60 @@ public enum AttributeError: Error {
     case wrongAttributeValueType
 }
 
-public class Attribute: Codable, AttributeValues {
-    let attribute: String
+public enum ValueType {
+    case int, float, string, periodMin, minFromMidnight, minFromMidday
+}
+
+public struct Attribute: AttributeValues {
+    let name: String
     let label: String
     let group: AttributeGroup
     let priority: Int
     let service: String
-    let valueType: Int
+    let valueType: ValueType
     let valueTypeDescription: String
     private let values: [AttributeData]
     
+    enum CodingKeys: String, CodingKey {
+        case name = "attribute", label, group, priority, service, valueType, valueTypeDescription, values
+    }
+}
+
+extension Attribute: Decodable {
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        self.name = try values.decode(String.self, forKey: .name)
+        self.label = try values.decode(String.self, forKey: .label)
+        self.group = try values.decode(AttributeGroup.self, forKey: .group)
+        self.priority = try values.decode(Int.self, forKey: .priority)
+        self.service = try values.decode(String.self, forKey: .service)
+        let type = try values.decode(Int.self, forKey: .valueType)
+        switch type {
+        case 0:
+            self.valueType = .int
+        case 1:
+            self.valueType = .float
+        case 2:
+            self.valueType = .string
+        case 3:
+            self.valueType = .periodMin
+        case 4:
+            self.valueType = .minFromMidnight
+        case 6:
+            self.valueType = .minFromMidday
+        default:
+            self.valueType = .string
+        }
+        self.valueTypeDescription = try values.decode(String.self, forKey: .valueTypeDescription)
+        self.values = try values.decode([AttributeData].self, forKey: .values)
+    }
+}
+
+// MARK: get values
+public extension Attribute {
+    
     public func getIntValues() throws -> [IntValue] {
-        guard self.valueType == 0 else {
+        guard case ValueType.int = self.valueType else {
             // not an Int
             throw AttributeError.wrongAttributeValueType
         }
@@ -43,7 +85,7 @@ public class Attribute: Codable, AttributeValues {
     }
     
     public func getStringValues() throws -> [StringValue] {
-        guard self.valueType == 2 else {
+        guard case ValueType.string = self.valueType else {
             // not a string
             throw AttributeError.wrongAttributeValueType
         }
@@ -93,7 +135,7 @@ public struct AttributeData: Codable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(self.value, forKey: .value)
         try container.encode(self.date, forKey: .date)
-        }
+    }
     
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
