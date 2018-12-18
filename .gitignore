@@ -4,6 +4,7 @@ Pods/
 !Podfile.lock
 
 ExistAPI.app.dSYM.zip
+ExistAPI.xcworkspace/xcshareddata
 xcuserdata/
 .DS_Store
 *.xcappdata
