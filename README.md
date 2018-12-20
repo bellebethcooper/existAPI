@@ -96,7 +96,7 @@ Get the user's attributes:
 
 ```swift
 existAPI.attributes()
-	.then { attributes in
+	.done { attributes in
 	// handle data
 	}
 ```
@@ -105,7 +105,7 @@ Pass in some parameters when getting attributes:
 
 ```swift
 existAPI.attributes(names: ["steps", "weight"], limit: 14)
-	.then { attributes in
+	.done { attributes in
 	// handle data
 	}
 ```
@@ -114,7 +114,7 @@ Get the user's insights:
 
 ```swift
 existAPI.insights(limit: 14, minDate: Date())
-	.then { insights, response in
+	.done { insights, response in
 	// handle data
 	}
 ```
@@ -123,7 +123,7 @@ Get the user's correlations:
 
 ```swift
 existAPI.correlations(for: "steps", limit: 30, latest: true)
-	.then { correlations, response in
+	.done { correlations, response in
 	// handle data
 	}
 ```

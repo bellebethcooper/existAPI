@@ -22,7 +22,10 @@ public extension ExistAPI {
     ///   - minDate: Optional date specifying the oldest value that can be returned, in format YYYY-mm-dd.
     ///   - maxDate: Optional date specifying the newest value that can be returned, in format YYYY-mm-dd.
     /// - Returns: A Promise with an array of Attribute models and a URLResponse, if no error is caught.
-    public func attributes(names: [String]?, limit: Int?, minDate: Date?, maxDate: Date?) -> Promise<(attributes: [Attribute], response: URLResponse)> {
+    public func attributes(names: [String]? = nil,
+                           limit: Int? = nil,
+                           minDate: Date? = nil,
+                           maxDate: Date? = nil) -> Promise<(attributes: [Attribute], response: URLResponse)> {
         var params = [String: Any]()
         if let limit = limit {
             params["limit"] = limit
@@ -63,7 +66,10 @@ public extension ExistAPI {
     ///   - maxDate: Most recent date (inclusive) of results to be returned, in format YYYY-mm-dd.
     ///   - latest: Set this to true to return only the most recently generated batch of correlations. Use this on its own without date_min and date_max.
     /// - Returns: a Promise with an array of Insight models and a URLResponse if no error was caught.
-    public func insights(limit: Int?, pageIndex: Int?, minDate: Date?, maxDate: Date?) -> Promise<(insights: [Insight], response: URLResponse)> {
+    public func insights(limit: Int? = nil,
+                         pageIndex: Int? = nil,
+                         minDate: Date? = nil,
+                         maxDate: Date? = nil) -> Promise<(insights: InsightResponse, response: URLResponse)> {
         var params = [String: Any]()
         if let limit = limit {
             params["limit"] = limit
@@ -78,12 +84,12 @@ public extension ExistAPI {
             params["date_min"] = ISOstring(from: max)
         }
         return get(url: baseURL+"insights/", params: [String:Any](), queries: nil)
-            .then(on: DispatchQueue.global(), flags: nil, { (arg) -> Promise<(insights: [Insight], response: URLResponse)> in
+            .then(on: DispatchQueue.global(), flags: nil, { (arg) -> Promise<(insights: InsightResponse, response: URLResponse)> in
                 let (data, response) = arg
                 let decoder = JSONDecoder()
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
-                decoder.dateDecodingStrategy = .formatted(DateFormatter.iso8601DateOnly)
-                let insights = try decoder.decode([Insight].self, from: data)
+                decoder.dateDecodingStrategy = .iso8601
+                let insights = try decoder.decode(InsightResponse.self, from: data)
                 return Promise { seal in
                     seal.fulfill((insights, response))
                 }
@@ -100,7 +106,11 @@ public extension ExistAPI {
     ///   - minDate: Oldest date (inclusive) of results to be returned, in format YYYY-mm-dd.
     ///   - maxDate: Most recent date (inclusive) of results to be returned, in format YYYY-mm-dd.
     /// - Returns: a Promise with an array of Average models and a URLResponse if no error was caught.
-    public func averages(for attribute: String?, limit: Int?, pageIndex: Int?, minDate: Date?, maxDate: Date?) -> Promise<(averages: [Average], response: URLResponse)> {
+    public func averages(for attribute: String? = nil,
+                         limit: Int? = nil,
+                         pageIndex: Int? = nil,
+                         minDate: Date? = nil,
+                         maxDate: Date? = nil) -> Promise<(averages: [Average], response: URLResponse)> {
         var params = [String: Any]()
         if let limit = limit {
             params["limit"] = limit
@@ -141,7 +151,12 @@ public extension ExistAPI {
     ///   - maxDate: Most recent date (inclusive) of results to be returned, in format YYYY-mm-dd.
     ///   - latest: Set this to true to return only the most recently generated batch of correlations. Use this on its own without date_min and date_max.
     /// - Returns: a Promise with an array of Correlation models and a URLResponse if no error was caught.
-    public func correlations(for attribute: String?, limit: Int?, pageIndex: Int?, minDate: Date?, maxDate: Date?, latest: Bool?) -> Promise<(correlations: [Correlation], response: URLResponse)> {
+    public func correlations(for attribute: String? = nil,
+                             limit: Int? = nil,
+                             pageIndex: Int? = nil,
+                             minDate: Date? = nil,
+                             maxDate: Date? = nil,
+                             latest: Bool? = true) -> Promise<(correlations: [Correlation], response: URLResponse)> {
         var params = [String: Any]()
         if let limit = limit {
             params["limit"] = limit

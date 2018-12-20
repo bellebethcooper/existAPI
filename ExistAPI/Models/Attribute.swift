@@ -116,7 +116,7 @@ public struct StringValue: ValueObject {
     public var date: Date
 }
 
-public class AttributeGroup: Codable {
+public struct AttributeGroup: Codable {
     let name: String
     let label: String
     let priority: Int
