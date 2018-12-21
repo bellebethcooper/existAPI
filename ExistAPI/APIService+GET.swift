@@ -199,7 +199,7 @@ public extension ExistAPI {
                 let (data, response) = arg
                 let decoder = JSONDecoder()
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
-                decoder.dateDecodingStrategy = .formatted(DateFormatter.iso8601DateOnly)
+                decoder.dateDecodingStrategy = .iso8601
                 let user = try decoder.decode(User.self, from: data)
                 return Promise { seal in
                     seal.fulfill((user, response))

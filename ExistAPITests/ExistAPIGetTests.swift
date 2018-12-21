@@ -75,4 +75,28 @@ class ExistAPIGetTests: XCTestCase {
             }
         self.wait(for: [expectation], timeout: TimeInterval(10))
     }
+    
+    func testAverages_returnsAResponse() {
+        let expectation = XCTestExpectation()
+        self.api.averages()
+            .done { (averages, response) in
+                print("testAverages_returnsAResponse - averages: \(averages) response: \(response)")
+                expectation.fulfill()
+            }.catch { (error) in
+                print("testAverages_returnsAResponse - error: \(error)")
+            }
+        self.wait(for: [expectation], timeout: TimeInterval(10))
+    }
+
+    func testUser_returnsAResponse() {
+        let expectation = XCTestExpectation()
+        self.api.user()
+            .done { (user, response) in
+                print("testUser_returnsAResponse - user: \(user) response: \(response)")
+                expectation.fulfill()
+            }.catch { (error) in
+                print("testUser_returnsAResponse - error: \(error)")
+        }
+        self.wait(for: [expectation], timeout: TimeInterval(10))
+    }
 }

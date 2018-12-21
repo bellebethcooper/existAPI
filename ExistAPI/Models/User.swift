@@ -15,19 +15,14 @@ public class User: Codable {
     let lastName: String
     let bio: String
     let url: String
-    let avatarURL: String
+    let avatar: String
     let timezone: String
-    let localTime: Date
-    let isPrivate: Bool
     let imperialUnits: Bool
     let imperialDistance: Bool
     let imperialWeight: Bool
     let imperialEnergy: Bool
     let imperialLiquid: Bool
     let imperialTemperature: Bool
-    let onTrial: Bool
+    let trial: Bool
     let delinquent: Bool
-    let iosNoCard: Bool
-    let iOSTrialEnd: Date
-    let isiOSCustomer: Bool
 }
