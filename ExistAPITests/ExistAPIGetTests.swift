@@ -63,4 +63,16 @@ class ExistAPIGetTests: XCTestCase {
         }
         self.wait(for: [expectation], timeout: TimeInterval(10))
     }
+    
+    func testCorrelations_returnsAResponse() {
+        let expectation = XCTestExpectation()
+        self.api.correlations()
+            .done { (correlations, response) in
+                print("testCorrelations_returnsAResponse - correlations: \(correlations) response: \(response)")
+                expectation.fulfill()
+            }.catch { (error) in
+                print("testCorrelations_returnsAResponse - error: \(error)")
+            }
+        self.wait(for: [expectation], timeout: TimeInterval(10))
+    }
 }

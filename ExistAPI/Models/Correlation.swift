@@ -12,19 +12,19 @@ import Foundation
 public class Correlation: Codable {
     let date: Date
     let period: Int
-    let firstAttribute: String
-    let secondAttribute: String
+    let attribute: String
+    let attribute2: String
     let value: Float
     let p: Float
     let percentage: Float
     let stars: Int
-    let secondPersonText: String
+    let secondPerson: String
     let secondPersonElements: [String]
     let strengthDescription: String
     let starsDescription: String
-    let description: String
-    let occurrence: String
-    let rating: CorrelationRating
+    let description: String?
+    let occurrence: String?
+    let rating: CorrelationRating?
 }
 
 public class CorrelationRating: Codable {
