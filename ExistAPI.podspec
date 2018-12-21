@@ -15,7 +15,7 @@ Pod::Spec.new do |spec|
     spec.author             = { "Belle Beth Cooper" => "belle@hellocode.co" }
     spec.social_media_url   = "https://twitter.com/bellebcooper"
     spec.source       = { :http => 'https://github.com/bellebethcooper/existAPI/archive/0.0.7.zip' }
-    spec.source_files  = "ExistAPI/Classes/*.{swift}"
+    spec.source_files  = "Classes/**/*.{swift}"
     # spec.resources = "ExistAPI/**/*.{png,jpeg,jpg,storyboard,xib,xcassets}"
     spec.swift_version = "4.2"
     spec.framework = "UIKit"
