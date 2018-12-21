@@ -3,6 +3,8 @@ Pods/
 !Podfile
 !Podfile.lock
 
+ExistAPITests/TestConstants.swift
+
 ExistAPI.app.dSYM.zip
 ExistAPI.xcworkspace/xcshareddata
 xcuserdata/

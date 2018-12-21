@@ -10,7 +10,7 @@ import XCTest
 @testable import ExistAPI
 
 class ExistAPIGetTests: XCTestCase {
-    var api: ExistAPI = ExistAPI(token: "da50757e605c7918738ee93e00fa10c83321ca85")
+    var api: ExistAPI = ExistAPI(token: TEST_TOKEN)
     
     override func setUp() {
     }

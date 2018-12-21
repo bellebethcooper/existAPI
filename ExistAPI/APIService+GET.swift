@@ -206,19 +206,4 @@ public extension ExistAPI {
                 }
             })
     }
-
-    // TODO: Need to decide how to handle attribute models for this endpoint, since they're similar but different to /attributes/ models
-//    public func today() -> Promise<(user: User, response: URLResponse)> {
-//        return get(url: baseURL+"today/", params: nil)
-//            .then(on: DispatchQueue.global(), flags: nil, { (arg) -> Promise<(user: User, response: URLResponse)> in
-//                let (data, response) = arg
-//                let decoder = JSONDecoder()
-//                decoder.keyDecodingStrategy = .convertFromSnakeCase
-//                decoder.dateDecodingStrategy = .iso8601
-//                let user = try decoder.decode(User.self, from: data)
-//                return Promise { seal in
-//                    seal.fulfill((user, response))
-//                }
-//            })
-//    }
 }
