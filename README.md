@@ -4,7 +4,9 @@ A framework for working with the [Exist](https://exist.io/) API on iOS.
 
 ## Installation
 
-via Cocoapods, details to come
+via Cocoapods:
+
+`pod 'ExistAPI', '~> 0.0.7'`
 
 ## Quick examples
 
@@ -163,6 +165,14 @@ when(fulfilled: [insightsPromise, averagesPromise, correlationsPromise])
 	// handle errors just once for all these promises
 	}
 ```
+
+## Building the app
+
+Clone the source and build using Xcode 10.
+
+### Running the tests
+
+Create a new file inside `ExistAPITests` called `TestConstants.swift` and add a global string called `TEST_TOKEN` with your own API token. You can get this by creating a developer client in your Exist account.
 
 ### TODO
 
