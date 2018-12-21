@@ -3,7 +3,7 @@ Pod::Spec.new do |spec|
     spec.platform = :ios
     spec.ios.deployment_target = '12.0'
     spec.name         = "ExistAPI"
-    spec.version      = "0.0.6"
+    spec.version      = "0.0.7"
     spec.summary      = "An iOS framework for working with the Exist API."
     spec.requires_arc = true
     spec.description  = <<-DESC
