@@ -2,6 +2,8 @@
 
 A framework for working with the [Exist](https://exist.io/) API on iOS.
 
+ExistAPI wraps the Exist API in promises (via `PromiseKit`) to make it easier to work with API responses imperatively and chain API calls together.
+
 ## Installation
 
 via Cocoapods:
@@ -39,7 +41,7 @@ existAPI.attributes(names: ["steps", "mood"], limit: 12)
 	}
 ```
 
-Acquire an attribute:
+<!-- Acquire an attribute:
 
 ```swift
 existAPI.acquire(names: ["steps"])
@@ -62,6 +64,7 @@ existAPI.update(attributes: [steps, distance])
 	// handle error
 	}
 ```
+-->
 
 ## Usage
 
@@ -84,7 +87,7 @@ First, you'll need to create an Exist developer client. Follow these steps to cr
 
 To quickly get started, you can simply copy and paste your personal auth token from this page. This will let you start testing your app with the Exist API immediately, and save building the authorisation flow for your users until later.
 
-### Creating a client
+### Creating an ExistAPI instance
 
 Create an instance of ExistAPI with your token, and optionally set a specific timeout period for network requests:
 
@@ -94,40 +97,119 @@ let existAPI = ExistAPI(token: yourToken, timeout: 40)
 
 ### GET requests
 
-Get the user's attributes:
-
 ```swift
-existAPI.attributes()
-	.done { attributes in
-	// handle data
-	}
+func attributes(names: [String]?, limit: Int?, minDate: Date?, maxDate: Date?) -> Promise<(attributes: [Attribute], response: URLResponse)>
 ```
 
-Pass in some parameters when getting attributes:
+Returns an array of `Attribute` models:
 
 ```swift
-existAPI.attributes(names: ["steps", "weight"], limit: 14)
-	.done { attributes in
-	// handle data
-	}
+struct Attribute: AttributeValues {
+    let name: String
+    let label: String
+    let group: AttributeGroup
+    let priority: Int
+    let service: String
+    let valueType: ValueType
+    let valueTypeDescription: String
+    private let values: [AttributeData]
+}
+
+public protocol AttributeValues {
+    func getIntValues() throws -> [IntValue]
+    func getStringValues() throws -> [StringValue]
+}
 ```
 
-Get the user's insights:
-
 ```swift
-existAPI.insights(limit: 14, minDate: Date())
-	.done { insights, response in
-	// handle data
-	}
+func insights(limit: Int?, pageIndex: Int?, minDate: Date?, maxDate: Date?) -> Promise<(insights: InsightResponse, response: URLResponse)>
 ```
 
-Get the user's correlations:
+Returns an `InsightResponse`:
 
 ```swift
-existAPI.correlations(for: "steps", limit: 30, latest: true)
-	.done { correlations, response in
-	// handle data
-	}
+struct InsightResponse {
+    let count: Int
+    var next: String?
+    var previous: String?
+    let results: [Insight]
+}
+
+struct Insight: Codable {
+    let created: Date
+    let targetDate: Date?
+    let type: InsightType
+    let html: String
+    let text: String
+}
+```
+
+<!--
+```swift
+func averages(for attribute: String?, limit: Int?, pageIndex: Int?, minDate: Date?, maxDate: Date?) -> Promise<(averages: [Average], response: URLResponse)>
+```
+
+Returns an array of `Average` models:
+
+```swift
+class Average: Codable {
+    let attribute: String
+    let date: Date
+}
+```
+-->
+
+```swift
+func correlations(for attribute: String?, limit: Int?, pageIndex: Int?, minDate: Date?, maxDate: Date?, latest: Bool?) -> Promise<(correlations: [Correlation], response: URLResponse)>
+```
+
+Returns an array of `Correlation` models:
+
+```swift
+class Correlation: Codable {
+    let date: Date
+    let period: Int
+    let attribute: String
+    let attribute2: String
+    let value: Float
+    let p: Float
+    let percentage: Float
+    let stars: Int
+    let secondPerson: String
+    let secondPersonElements: [String]
+    let strengthDescription: String
+    let starsDescription: String
+    let description: String?
+    let occurrence: String?
+    let rating: CorrelationRating?
+}
+```
+
+```swift
+func user() -> Promise<(user: User, response: URLResponse)>
+```
+
+Returns a `User` model:
+
+```swift
+class User: Codable {
+    let id: Int
+    let username: String
+    let firstName: String
+    let lastName: String
+    let bio: String
+    let url: String
+    let avatar: String
+    let timezone: String
+    let imperialUnits: Bool
+    let imperialDistance: Bool
+    let imperialWeight: Bool
+    let imperialEnergy: Bool
+    let imperialLiquid: Bool
+    let imperialTemperature: Bool
+    let trial: Bool
+    let delinquent: Bool
+}
 ```
 
 ### POST requests
@@ -178,3 +260,4 @@ Create a new file inside `ExistAPITests` called `TestConstants.swift` and add a 
 
 - [x] GET requests
 - [ ] POST requests
+- [ ] Create a convenience `func` for accessing only today's attributes
