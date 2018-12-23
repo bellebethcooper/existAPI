@@ -2,7 +2,7 @@
 
 A framework for working with the [Exist](https://exist.io/) API on iOS.
 
-ExistAPI wraps the Exist API in promises (via `PromiseKit`) to make it easier to work with API responses imperatively and chain API calls together.
+ExistAPI wraps the Exist API in promises (via `PromiseKit`) to make it easier to work with API responses imperatively and chain API calls together. It also deserialises all API responses into strongly typed, `Decodable` models.
 
 ## Installation
 
@@ -222,6 +222,7 @@ class User: Codable {
 
 Not supported yet.
 
+<!--
 ### Chaining
 
 Because ExistAPI uses PromiseKit, you can chain multiple calls together. Here are some examples:
@@ -253,6 +254,7 @@ when(fulfilled: [insightsPromise, averagesPromise, correlationsPromise])
 	// handle errors just once for all these promises
 	}
 ```
+-->
 
 ## Building the app
 
@@ -260,7 +262,13 @@ Clone the source and build using Xcode 10.
 
 ### Running the tests
 
-Create a new file inside `ExistAPITests` called `TestConstants.swift` and add a global string called `TEST_TOKEN` with your own API token. You can get this by creating a developer client in your Exist account.
+Create a new file inside `ExistAPITests` called `TestConstants.swift` and add a string constant called `TEST_TOKEN` with your own API token, like this:
+
+```swift
+let TEST_TOKEN = "your_token_string_here"
+```
+
+Without this, the tests will fail. You can get your access token by creating a developer client in your [Exist account](https://exist.io/account/).
 
 ### TODO
 
