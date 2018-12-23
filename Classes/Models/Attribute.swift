@@ -12,6 +12,7 @@ import Foundation
 public protocol AttributeValues {
     func getIntValues() throws -> [IntValue]
     func getStringValues() throws -> [StringValue]
+    func getFloatValues() throws -> [FloatValue]
 }
 
 public enum AttributeError: Error {
@@ -71,16 +72,18 @@ extension Attribute: Decodable {
 public extension Attribute {
     
     public func getIntValues() throws -> [IntValue] {
-        guard case ValueType.int = self.valueType else {
+        switch self.valueType {
+        case .int, .minFromMidday, .minFromMidnight, .periodMin:
+            return self.values.compactMap { (attributeData) -> IntValue? in
+                guard let string = attributeData.value else {
+                    return IntValue(value: nil, date: attributeData.date)
+                }
+                guard let v: Int = Int(string) else { return nil }
+                return IntValue(value: v, date: attributeData.date)
+            }
+        default:
             // not an Int
             throw AttributeError.wrongAttributeValueType
-        }
-        return self.values.compactMap { (attributeData) -> IntValue? in
-            guard let string = attributeData.value else {
-                return IntValue(value: nil, date: attributeData.date)
-            }
-            guard let v: Int = Int(string) else { return nil }
-            return IntValue(value: v, date: attributeData.date)
         }
     }
     
@@ -94,6 +97,20 @@ public extension Attribute {
                 return StringValue(value: nil, date: attributeData.date)
             }
             return StringValue(value: string, date: attributeData.date)
+        }
+    }
+    
+    public func getFloatValues() throws -> [FloatValue] {
+        guard case ValueType.float = self.valueType else {
+            // not a float
+            throw AttributeError.wrongAttributeValueType
+        }
+        return self.values.compactMap { (attributeData) -> FloatValue? in
+            guard let string = attributeData.value else {
+                return FloatValue(value: nil, date: attributeData.date)
+            }
+            guard let v: Float = Float(string) else { return nil }
+            return FloatValue(value: v, date: attributeData.date)
         }
     }
 }
@@ -113,6 +130,12 @@ public struct IntValue: ValueObject {
 public struct StringValue: ValueObject {
     public typealias ValueType = String
     public var value: String?
+    public var date: Date
+}
+
+public struct FloatValue: ValueObject {
+    public typealias ValueType = Float
+    public var value: Float?
     public var date: Date
 }
 

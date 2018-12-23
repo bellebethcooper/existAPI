@@ -144,7 +144,6 @@ struct Insight: Codable {
 }
 ```
 
-<!--
 ```swift
 func averages(for attribute: String?, limit: Int?, pageIndex: Int?, minDate: Date?, maxDate: Date?) -> Promise<(averages: [Average], response: URLResponse)>
 ```
@@ -155,9 +154,16 @@ Returns an array of `Average` models:
 class Average: Codable {
     let attribute: String
     let date: Date
+    let overall: Float
+    let monday: Float
+    let tuesday: Float
+    let wednesday: Float
+    let thursday: Float
+    let friday: Float
+    let saturday: Float
+    let sunday: Float
 }
 ```
--->
 
 ```swift
 func correlations(for attribute: String?, limit: Int?, pageIndex: Int?, minDate: Date?, maxDate: Date?, latest: Bool?) -> Promise<(correlations: [Correlation], response: URLResponse)>
