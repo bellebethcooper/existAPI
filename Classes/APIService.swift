@@ -17,7 +17,8 @@ enum APIServiceError: Error {
 
 public class ExistAPI {
     
-    let baseURL = "https://exist.io/api/1/users/$self/"
+    let baseGETURL = "https://exist.io/api/1/users/$self/"
+    let basePOSTURL = "https://exist.io/api/1/"
     var token: String
     var timeout: TimeInterval
     
@@ -32,30 +33,32 @@ public class ExistAPI {
 internal extension ExistAPI {
     
     internal func get(url: String, params: [String: Any]?, queries: [URLQueryItem]?) -> Promise<(data: Data, response: URLResponse)> {
-        guard let rq = request(with: url, queries: queries) else {
+        guard var rq = request(with: url, queries: queries) else {
             return Promise { seal in
                 seal.reject(APIServiceError.failedToCreateURL)
             }
         }
+        rq.httpMethod = "GET"
         let session = defaultSession()
         return session.dataTask(.promise, with: rq).validate()
     }
     
-    internal func post(url: String, body: [String: Any]?, queries: [URLQueryItem]?) -> Promise<(data: Data, response: URLResponse)> {
-        guard let rq = request(with: url, queries: queries) else {
-            return Promise { seal in
-                seal.reject(APIServiceError.failedToCreateURL)
-            }
-        }
+    internal func post(url: String, body: [[String: Any]]?, queries: [URLQueryItem]?) -> Promise<(data: Data, response: URLResponse)> {
         var serializedData: Data? = nil
         if let body = body {
             serializedData = data(from: body)
         }
+        guard var rq = request(with: url, queries: queries, body: serializedData) else {
+            return Promise { seal in
+                seal.reject(APIServiceError.failedToCreateURL)
+            }
+        }
+        rq.httpMethod = "POST"
         let session = defaultSession()
         return session.uploadTask(.promise, with: rq, from: serializedData ?? Data()).validate()
     }
     
-    internal func data(from body: [String: Any]) -> Data? {
+    internal func data(from body: [[String: Any]]) -> Data? {
         do {
             let data = try JSONSerialization.data(withJSONObject: body, options: [])
             return data
@@ -65,7 +68,7 @@ internal extension ExistAPI {
         }
     }
     
-    internal func request(with url: String, queries: [URLQueryItem]?) -> URLRequest? {
+    internal func request(with url: String, queries: [URLQueryItem]?, body: Data? = nil) -> URLRequest? {
         var urlComps = URLComponents(string: url)
         urlComps?.queryItems = queries
         guard let comps = urlComps,
@@ -75,7 +78,8 @@ internal extension ExistAPI {
         }
         
         var request = URLRequest(url: finalURL)
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = body
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         request.setValue("application/json", forHTTPHeaderField: "Accept")
         request.setValue("Bearer "+self.token, forHTTPHeaderField: "Authorization")
         return request

@@ -36,7 +36,7 @@ public extension ExistAPI {
         if let max = maxDate {
             params["date_min"] = ISOstring(from: max)
         }
-        let url = baseURL+"attributes/"
+        let url = baseGETURL+"attributes/"
         var queries = [URLQueryItem]()
         if let names = names {
             queries.append(URLQueryItem(name: "attributes", value: names.joined(separator: ",")))
@@ -83,7 +83,7 @@ public extension ExistAPI {
         if let max = maxDate {
             params["date_min"] = ISOstring(from: max)
         }
-        return get(url: baseURL+"insights/", params: [String:Any](), queries: nil)
+        return get(url: baseGETURL+"insights/", params: [String:Any](), queries: nil)
             .then(on: DispatchQueue.global(), flags: nil, { (arg) -> Promise<(insights: InsightResponse, response: URLResponse)> in
                 let (data, response) = arg
                 let decoder = JSONDecoder()
@@ -124,7 +124,7 @@ public extension ExistAPI {
         if let max = maxDate {
             params["date_min"] = ISOstring(from: max)
         }
-        var urlString = baseURL+"averages/"
+        var urlString = baseGETURL+"averages/"
         if let attribute = attribute {
             urlString += "attribute/\(attribute)/"
         }
@@ -170,7 +170,7 @@ public extension ExistAPI {
         if let max = maxDate {
             params["date_min"] = ISOstring(from: max)
         }
-        var urlString = baseURL+"correlations/"
+        var urlString = baseGETURL+"correlations/"
         if let attribute = attribute {
             urlString += "attribute/\(attribute)/"
         } else {
@@ -194,7 +194,7 @@ public extension ExistAPI {
     ///
     /// - Returns: A Promise with a User model and URLResponse, if no errors were caught
     public func user() -> Promise<(user: User, response: URLResponse)> {
-        return get(url: baseURL+"profile/", params: nil, queries: nil)
+        return get(url: baseGETURL+"profile/", params: nil, queries: nil)
             .then(on: DispatchQueue.global(), flags: nil, { (arg) -> Promise<(user: User, response: URLResponse)> in
                 let (data, response) = arg
                 let decoder = JSONDecoder()

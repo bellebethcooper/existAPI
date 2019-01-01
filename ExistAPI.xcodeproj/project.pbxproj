@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		682E3B9B2195639B0060310A /* ExistAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 682E3B912195639B0060310A /* ExistAPI.framework */; };
 		682E3BA02195639B0060310A /* ExistAPIGetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682E3B9F2195639B0060310A /* ExistAPIGetTests.swift */; };
+		6886A89021D9D33D009FC2EF /* ExistAPIPostTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6886A88F21D9D33D009FC2EF /* ExistAPIPostTests.swift */; };
 		68D85FC121CCA5A20055EF07 /* TestConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D85FC021CCA5A20055EF07 /* TestConstants.swift */; };
 		68D85FED21CDAD8B0055EF07 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D85FE121CDAD8B0055EF07 /* APIService.swift */; };
 		68D85FEE21CDAD8B0055EF07 /* APIService+GET.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D85FE221CDAD8B0055EF07 /* APIService+GET.swift */; };
@@ -41,6 +42,7 @@
 		682E3B9A2195639B0060310A /* ExistAPITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExistAPITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		682E3B9F2195639B0060310A /* ExistAPIGetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExistAPIGetTests.swift; sourceTree = "<group>"; };
 		682E3BA12195639B0060310A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6886A88F21D9D33D009FC2EF /* ExistAPIPostTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExistAPIPostTests.swift; sourceTree = "<group>"; };
 		68D85FC021CCA5A20055EF07 /* TestConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestConstants.swift; sourceTree = "<group>"; };
 		68D85FE121CDAD8B0055EF07 /* APIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		68D85FE221CDAD8B0055EF07 /* APIService+GET.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "APIService+GET.swift"; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				682E3B9F2195639B0060310A /* ExistAPIGetTests.swift */,
+				6886A88F21D9D33D009FC2EF /* ExistAPIPostTests.swift */,
 				682E3BA12195639B0060310A /* Info.plist */,
 				68D85FC021CCA5A20055EF07 /* TestConstants.swift */,
 			);
@@ -197,7 +200,6 @@
 				682E3B962195639B0060310A /* Sources */,
 				682E3B972195639B0060310A /* Frameworks */,
 				682E3B982195639B0060310A /* Resources */,
-				AD0C71D679B9E14ACA89E033 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -309,28 +311,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		AD0C71D679B9E14ACA89E033 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ExistAPITests/Pods-ExistAPITests-frameworks.sh",
-				"${PODS_ROOT}/EarlGrey/EarlGrey/EarlGrey.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EarlGrey.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ExistAPITests/Pods-ExistAPITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -354,6 +334,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6886A89021D9D33D009FC2EF /* ExistAPIPostTests.swift in Sources */,
 				682E3BA02195639B0060310A /* ExistAPIGetTests.swift in Sources */,
 				68D85FC121CCA5A20055EF07 /* TestConstants.swift in Sources */,
 			);

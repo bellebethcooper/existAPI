@@ -11,7 +11,6 @@ end
 def testPods
   pod 'PromiseKit', '~> 6.0'
   pod 'Nimble', '~> 7.1.1' # writing asserts in tests, works with Quick
-  pod 'Sencha', '~> 0.4.1'
 end
 
 

@@ -1,36 +1,28 @@
 PODS:
-  - EarlGrey (1.12.1)
   - Nimble (7.1.3)
-  - PromiseKit (6.5.2):
-    - PromiseKit/CorePromise (= 6.5.2)
-    - PromiseKit/Foundation (= 6.5.2)
-    - PromiseKit/UIKit (= 6.5.2)
-  - PromiseKit/CorePromise (6.5.2)
-  - PromiseKit/Foundation (6.5.2):
+  - PromiseKit (6.7.0):
+    - PromiseKit/CorePromise (= 6.7.0)
+    - PromiseKit/Foundation (= 6.7.0)
+    - PromiseKit/UIKit (= 6.7.0)
+  - PromiseKit/CorePromise (6.7.0)
+  - PromiseKit/Foundation (6.7.0):
     - PromiseKit/CorePromise
-  - PromiseKit/UIKit (6.5.2):
+  - PromiseKit/UIKit (6.7.0):
     - PromiseKit/CorePromise
-  - Sencha (0.4.1):
-    - EarlGrey (~> 1.12.1)
 
 DEPENDENCIES:
   - Nimble (~> 7.1.1)
   - PromiseKit (~> 6.0)
-  - Sencha (~> 0.4.1)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
-    - EarlGrey
     - Nimble
     - PromiseKit
-    - Sencha
 
 SPEC CHECKSUMS:
-  EarlGrey: f7774b813c888ebdb9a21e612d67874d17d5a326
   Nimble: 2839b01d1b31f6a6a7777a221f0d91cf52e8e27b
-  PromiseKit: 27c1601bfb73405871b805bcb8cf7e55c4dad3db
-  Sencha: cf81b130dc159e4fdf094777f6f3935116636202
+  PromiseKit: 453ddcc947fe7b302f3ef41882b81d31c554df7f
 
-PODFILE CHECKSUM: 1c07a01c65d4186ad2a54ccc442edd8bb70a20a6
+PODFILE CHECKSUM: f3e969a7cfcc9030090c598dee74e239ccf8af2f
 
 COCOAPODS: 1.6.0.beta.2
