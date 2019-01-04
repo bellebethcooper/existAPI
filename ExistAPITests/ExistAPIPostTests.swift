@@ -30,14 +30,31 @@ class ExistAPIPostTests: XCTestCase {
         self.wait(for: [expectation], timeout: TimeInterval(30))
     }
     
+    // NOTE: Make sure you run testAcquire_Succeeds test first
+    // or else this test will fail, because the attribute
+    // must be acquired before it can be updated
+    func testUpdate_Succeeds() {
+        let expectation = XCTestExpectation()
+        self.api.update(attributes: [["value": 25, "name": "money_spent", "date": "2019-01-03"]])
+            .done { (attributeResponse, urlResponse) in
+                print("testUpdate_Succeeds - attributeResp: \(attributeResponse) urlResp: \(urlResponse)")
+                expectation.fulfill()
+            }.catch { (error) in
+                print("testUpdate_Succeeds - error: \(error)")
+        }
+        self.wait(for: [expectation], timeout: TimeInterval(30))
+    }
+    
+    // NOTE: After running this test, the update test won't work
+    // Make sure update has already run before running this one
     func testRelease_Succeeds() {
         let expectation = XCTestExpectation()
         self.api.release(names: ["money_spent"])
             .done { (attributeResponse, urlResponse) in
-                print("testAcquire_Succeeds - attributeResp: \(attributeResponse) urlResp: \(urlResponse)")
+                print("testRelease_Succeeds - attributeResp: \(attributeResponse) urlResp: \(urlResponse)")
                 expectation.fulfill()
             }.catch { (error) in
-                print("testAcquire_Succeeds - error: \(error)")
+                print("testRelease_Succeeds - error: \(error)")
         }
         self.wait(for: [expectation], timeout: TimeInterval(30))
     }

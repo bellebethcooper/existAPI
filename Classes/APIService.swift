@@ -79,7 +79,7 @@ internal extension ExistAPI {
         
         var request = URLRequest(url: finalURL)
         request.httpBody = body
-        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("application/json", forHTTPHeaderField: "Accept")
         request.setValue("Bearer "+self.token, forHTTPHeaderField: "Authorization")
         return request
@@ -89,6 +89,7 @@ internal extension ExistAPI {
         let config = URLSessionConfiguration.default
         config.timeoutIntervalForRequest = self.timeout
         config.timeoutIntervalForResource = self.timeout
+        config.requestCachePolicy = .reloadIgnoringLocalCacheData
         return URLSession(configuration: config)
     }
 }
