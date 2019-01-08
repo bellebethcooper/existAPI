@@ -31,7 +31,7 @@ class ExistAPIGetTests: XCTestCase {
             }.catch { (error) in
                 print("testAttributes_steps_returnsAResponse - error: \(error)")
         }
-        self.wait(for: [expectation], timeout: TimeInterval(20))
+        self.wait(for: [expectation], timeout: TimeInterval(40))
     }
 
     func testAttributes_steps_returnsAResponse() {

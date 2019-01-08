@@ -12,12 +12,6 @@ import XCTest
 class ExistAPIPostTests: XCTestCase {
     var api: ExistAPI = ExistAPI(token: TEST_TOKEN)
     
-    override func setUp() {
-    }
-    
-    override func tearDown() {
-    }
-    
     func testAcquire_Succeeds() {
         let expectation = XCTestExpectation()
         self.api.acquire(names: ["money_spent"])
@@ -35,16 +29,11 @@ class ExistAPIPostTests: XCTestCase {
     // must be acquired before it can be updated
     func testUpdate_Succeeds() {
         let expectation = XCTestExpectation()
-        let today = Date()
-        let tomorrow = Date().addingTimeInterval(TimeInterval(86000))
-        var todayComps = Calendar.autoupdatingCurrent.dateComponents([.year, .month, .day, .minute, .second], from: Date())
-        todayComps.day! -= 1
-        let yesterday = Calendar.autoupdatingCurrent.date(from: todayComps)
-        let todayUpdate = IntAttributeUpdate(name: "money_spent", date: today, value: 45)
-        let tomorrowUpdate = IntAttributeUpdate(name: "money_spent", date: tomorrow, value: 30)
-        let yestUpdate = IntAttributeUpdate(name: "money_spent", date: yesterday!, value: 15)
-        print("test today: \(todayUpdate.dictionaryRepresentation()?["date"]) tomo: \(tomorrowUpdate.dictionaryRepresentation()?["date"]), yest: \(yestUpdate.dictionaryRepresentation()?["date"])")
-        self.api.update(attributes: [todayUpdate, tomorrowUpdate, yestUpdate])
+        let todayComps = Calendar.autoupdatingCurrent.dateComponents([.year, .month, .day], from: Date())
+        let date = Calendar.autoupdatingCurrent.date(from: todayComps)!
+        let money = IntAttributeUpdate(name: "money_spent", date: date, value: 45)
+//        let caffeine = FloatAttributeUpdate(name: "caffeine", date: date, value: 14.5)
+        self.api.update(attributes: [money])
             .done { (attributeResponse, urlResponse) in
                 print("testUpdate_Succeeds - attributeResp: \(attributeResponse) urlResp: \(urlResponse)")
                 expectation.fulfill()
