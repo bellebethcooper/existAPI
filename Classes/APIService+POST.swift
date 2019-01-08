@@ -10,91 +10,6 @@ import Foundation
 import PromiseKit
 
 
-public struct AttributeUpdate: Codable {
-    let name: String
-    let date: String
-    let value: AttributeData
-}
-
-public struct AttributeResponse: Codable {
-    var success: [SuccessfulAttribute]?
-    var failed: [FailedAttribute]?
-}
-
-public struct SuccessfulAttribute: Codable {
-    var name: String
-    var active: Bool?
-}
-
-public struct FailedAttribute: Codable {
-    var name: String
-    var errorCode: String
-    var error: String
-}
-
-public struct AttributeUpdateResponse: Codable {
-    var success: [SuccessfullyUpdatedAttribute]?
-    var failed: [FailedToUpdateAttribute]?
-}
-
-public struct SuccessfullyUpdatedAttribute: Codable {
-    var name: String
-    var date: Date
-    var value: String?
-    
-    enum CodingKeys: CodingKey {
-        case name
-        case date
-        case value
-    }
-    
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.name = try container.decode(String.self, forKey: .name)
-        self.date = try container.decode(Date.self, forKey: .date)
-        var stringValue: String? = nil
-        if let string = try? container.decode(String.self, forKey: .value) {
-            stringValue = string
-        }
-        if let number = try? container.decode(Float.self, forKey: .value) {
-            stringValue = String(number)
-        }
-        self.value = stringValue
-    }
-}
-
-public struct FailedToUpdateAttribute: Codable {
-    var name: String?
-    var date: Date?
-    var value: String?
-    var errorCode: String
-    var error: String
-    
-    enum CodingKeys: CodingKey {
-        case name
-        case date
-        case value
-        case errorCode
-        case error
-    }
-    
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.name = try container.decode(String.self, forKey: .name)
-        self.date = try container.decode(Date.self, forKey: .date)
-        var stringValue: String? = nil
-        if let string = try? container.decode(String.self, forKey: .value) {
-            stringValue = string
-        }
-        if let number = try? container.decode(Float.self, forKey: .value) {
-            stringValue = String(number)
-        }
-        self.value = stringValue
-        self.error = try container.decode(String.self, forKey: .error)
-        self.errorCode = try container.decode(String.self, forKey: .errorCode)
-    }
-}
-
 // Post requests
 extension ExistAPI {
     
@@ -102,7 +17,7 @@ extension ExistAPI {
         let attributes = names.map { (name) -> [String: Any] in
             return ["name": name, "active": true]
         }
-        return post(url: basePOSTURL+"attributes/acquire/", body: attributes, queries: nil)
+        return post(url: basePOSTURL+"attributes/acquire/", body: data(from: attributes), queries: nil)
             .then(on: DispatchQueue.global(), flags: nil, { (arg) -> Promise<(attributeResponse: AttributeResponse, response: URLResponse)> in
                 let (data, response) = arg
                 let decoder = JSONDecoder()
@@ -119,7 +34,7 @@ extension ExistAPI {
         let attributes = names.map { (name) -> [String: Any] in
             return ["name": name, "active": true]
         }
-        return post(url: basePOSTURL+"attributes/release/", body: attributes, queries: nil)
+        return post(url: basePOSTURL+"attributes/release/", body: data(from: attributes), queries: nil)
             .then(on: DispatchQueue.global(), flags: nil, { (arg) -> Promise<(attributeResponse: AttributeResponse, response: URLResponse)> in
                 let (data, response) = arg
                 let decoder = JSONDecoder()
@@ -132,8 +47,40 @@ extension ExistAPI {
             })
     }
     
-    public func update(attributes: [[String: Any]]) -> Promise<(attributeResponse: AttributeUpdateResponse, response: URLResponse)> {
-        return post(url: basePOSTURL+"attributes/update/", body: attributes, queries: nil)
+    internal func data(from array: [[String: Any]]) -> Data? {
+        do {
+            let data = try JSONSerialization.data(withJSONObject:array , options: [])
+            return data
+        } catch {
+            print("APIService+POST update - couldn't serialize updates into Data. Here's the error: \(error) and here are the updates: \(attributes)")
+            return nil
+        }
+    }
+    
+    public func update<T: AttributeUpdate>(attributes: [T]) -> Promise<(attributeResponse: AttributeUpdateResponse, response: URLResponse)> {
+        
+        func JSON<T: AttributeUpdate>(from updates: [T]) throws -> Data {
+            let array = updates.compactMap({ (update) -> [String: Any]? in
+                update.dictionaryRepresentation()
+            })
+            return try JSONSerialization.data(withJSONObject: array, options: [])
+        }
+        
+        var jsonData: Data? = nil
+        do {
+            jsonData = try JSON(from: attributes)
+        } catch {
+            print("APIService+POST update - couldn't serialize updates into Data. Here's the error: \(error) and here are the updates: \(attributes)")
+            return Promise { seal in
+                seal.reject(error)
+            }
+        }
+        guard let d = jsonData else {
+            return Promise { seal in
+                seal.reject(APIServiceError.failedToCreateJSONData)
+            }
+        }
+        return post(url: basePOSTURL+"attributes/update/", body:d , queries: nil)
             .then(on: DispatchQueue.global(), flags: nil, { (arg) -> Promise<(attributeResponse: AttributeUpdateResponse, response: URLResponse)> in
                 let (data, response) = arg
                 let decoder = JSONDecoder()

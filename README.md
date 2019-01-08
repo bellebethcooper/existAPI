@@ -41,7 +41,7 @@ existAPI.attributes(names: ["steps", "mood"], limit: 12)
 	}
 ```
 
-<!-- Acquire an attribute:
+Acquire an attribute:
 
 ```swift
 existAPI.acquire(names: ["steps"])
@@ -64,7 +64,6 @@ existAPI.update(attributes: [steps, distance])
 	// handle error
 	}
 ```
--->
 
 ## Usage
 
@@ -273,5 +272,6 @@ Without this, the tests will fail. You can get your access token by creating a d
 ### TODO
 
 - [x] GET requests
-- [ ] POST requests
+- [x] POST requests
 - [ ] Create a convenience `func` for accessing only today's attributes
+- [ ] Support appending custom tags

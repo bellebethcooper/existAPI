@@ -11,6 +11,7 @@ import PromiseKit
 
 enum APIServiceError: Error {
     case failedToCreateURL
+    case failedToCreateJSONData
 }
 
 // MARK: ExistAPI
@@ -43,29 +44,15 @@ internal extension ExistAPI {
         return session.dataTask(.promise, with: rq).validate()
     }
     
-    internal func post(url: String, body: [[String: Any]]?, queries: [URLQueryItem]?) -> Promise<(data: Data, response: URLResponse)> {
-        var serializedData: Data? = nil
-        if let body = body {
-            serializedData = data(from: body)
-        }
-        guard var rq = request(with: url, queries: queries, body: serializedData) else {
+    internal func post(url: String, body: Data?, queries: [URLQueryItem]?) -> Promise<(data: Data, response: URLResponse)> {
+        guard var rq = request(with: url, queries: queries, body: body) else {
             return Promise { seal in
                 seal.reject(APIServiceError.failedToCreateURL)
             }
         }
         rq.httpMethod = "POST"
         let session = defaultSession()
-        return session.uploadTask(.promise, with: rq, from: serializedData ?? Data()).validate()
-    }
-    
-    internal func data(from body: [[String: Any]]) -> Data? {
-        do {
-            let data = try JSONSerialization.data(withJSONObject: body, options: [])
-            return data
-        } catch {
-            print("APIService data(from body:) - couldn't serialize body into Data. Here's the error: \(error) and here's the body object: \(body)")
-            return nil
-        }
+        return session.uploadTask(.promise, with: rq, from: body ?? Data()).validate()
     }
     
     internal func request(with url: String, queries: [URLQueryItem]?, body: Data? = nil) -> URLRequest? {
