@@ -18,9 +18,15 @@ public protocol AttributeUpdate: Codable {
 
 extension AttributeUpdate {
     public func dictionaryRepresentation() -> [String : Any]? {
-        return ["name": self.name,
-                "date": ISOstring(from: self.date),
-                "value": self.value]
+        do {
+            let date = try ISOstring(from: self.date)
+            return ["name": self.name,
+                    "date": date,
+                    "value": self.value]
+        } catch {
+            print("ExistAPI AttributeUpdate - Failed to create AttributeUpdate due to error formatting date: \(error)")
+            return nil
+        }
     }
 }
 

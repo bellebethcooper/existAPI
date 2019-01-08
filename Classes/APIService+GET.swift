@@ -26,22 +26,25 @@ public extension ExistAPI {
                            limit: Int? = nil,
                            minDate: Date? = nil,
                            maxDate: Date? = nil) -> Promise<(attributes: [Attribute], response: URLResponse)> {
-        var params = [String: Any]()
-        if let limit = limit {
-            params["limit"] = limit
-        }
-        if let min = minDate {
-            params["date_min"] = ISOstring(from: min)
-        }
-        if let max = maxDate {
-            params["date_min"] = ISOstring(from: max)
-        }
-        let url = baseGETURL+"attributes/"
-        var queries = [URLQueryItem]()
-        if let names = names {
-            queries.append(URLQueryItem(name: "attributes", value: names.joined(separator: ",")))
-        }
-        return get(url: url, params: params, queries: queries)
+        
+        return firstly(execute: { () -> Promise<(data: Data, response: URLResponse)> in
+            var params = [String: Any]()
+            if let limit = limit {
+                params["limit"] = limit
+            }
+            if let min = minDate {
+                params["date_min"] = try ISOstring(from: min)
+            }
+            if let max = maxDate {
+                params["date_min"] = try ISOstring(from: max)
+            }
+            let url = baseGETURL+"attributes/"
+            var queries = [URLQueryItem]()
+            if let names = names {
+                queries.append(URLQueryItem(name: "attributes", value: names.joined(separator: ",")))
+            }
+            return get(url: url, params: params, queries: queries)
+        })
             .then(on: DispatchQueue.global(), flags: nil, { (arg) -> Promise<(attributes: [Attribute], response: URLResponse)> in
                 let (data, response) = arg
                 let string = String(data: data, urlResponse: response)
@@ -70,20 +73,23 @@ public extension ExistAPI {
                          pageIndex: Int? = nil,
                          minDate: Date? = nil,
                          maxDate: Date? = nil) -> Promise<(insights: InsightResponse, response: URLResponse)> {
-        var params = [String: Any]()
-        if let limit = limit {
-            params["limit"] = limit
-        }
-        if let index = pageIndex {
-            params["page"] = index
-        }
-        if let min = minDate {
-            params["date_min"] = ISOstring(from: min)
-        }
-        if let max = maxDate {
-            params["date_min"] = ISOstring(from: max)
-        }
-        return get(url: baseGETURL+"insights/", params: [String:Any](), queries: nil)
+        
+        return firstly(execute: { () -> Promise<(data: Data, response: URLResponse)> in
+            var params = [String: Any]()
+            if let limit = limit {
+                params["limit"] = limit
+            }
+            if let index = pageIndex {
+                params["page"] = index
+            }
+            if let min = minDate {
+                params["date_min"] = try ISOstring(from: min)
+            }
+            if let max = maxDate {
+                params["date_min"] = try ISOstring(from: max)
+            }
+            return get(url: baseGETURL+"insights/", params: [String:Any](), queries: nil)
+        })
             .then(on: DispatchQueue.global(), flags: nil, { (arg) -> Promise<(insights: InsightResponse, response: URLResponse)> in
                 let (data, response) = arg
                 let decoder = JSONDecoder()
@@ -111,24 +117,27 @@ public extension ExistAPI {
                          pageIndex: Int? = nil,
                          minDate: Date? = nil,
                          maxDate: Date? = nil) -> Promise<(averages: [Average], response: URLResponse)> {
-        var params = [String: Any]()
-        if let limit = limit {
-            params["limit"] = limit
-        }
-        if let index = pageIndex {
-            params["page"] = index
-        }
-        if let min = minDate {
-            params["date_min"] = ISOstring(from: min)
-        }
-        if let max = maxDate {
-            params["date_min"] = ISOstring(from: max)
-        }
-        var urlString = baseGETURL+"averages/"
-        if let attribute = attribute {
-            urlString += "attribute/\(attribute)/"
-        }
-        return get(url: urlString, params: params, queries: nil)
+        
+        return firstly(execute: { () -> Promise<(data: Data, response: URLResponse)> in
+            var params = [String: Any]()
+            if let limit = limit {
+                params["limit"] = limit
+            }
+            if let index = pageIndex {
+                params["page"] = index
+            }
+            if let min = minDate {
+                params["date_min"] = try ISOstring(from: min)
+            }
+            if let max = maxDate {
+                params["date_min"] = try ISOstring(from: max)
+            }
+            var urlString = baseGETURL+"averages/"
+            if let attribute = attribute {
+                urlString += "attribute/\(attribute)/"
+            }
+            return get(url: urlString, params: params, queries: nil)
+        })
             .then(on: DispatchQueue.global(), flags: nil, { (arg) -> Promise<(averages: [Average], response: URLResponse)> in
                 let (data, response) = arg
                 let decoder = JSONDecoder()
@@ -157,26 +166,29 @@ public extension ExistAPI {
                              minDate: Date? = nil,
                              maxDate: Date? = nil,
                              latest: Bool? = true) -> Promise<(correlations: [Correlation], response: URLResponse)> {
-        var params = [String: Any]()
-        if let limit = limit {
-            params["limit"] = limit
-        }
-        if let index = pageIndex {
-            params["page"] = index
-        }
-        if let min = minDate {
-            params["date_min"] = ISOstring(from: min)
-        }
-        if let max = maxDate {
-            params["date_min"] = ISOstring(from: max)
-        }
-        var urlString = baseGETURL+"correlations/"
-        if let attribute = attribute {
-            urlString += "attribute/\(attribute)/"
-        } else {
-            urlString += "strongest/"
-        }
-        return get(url: urlString, params: [String:Any](), queries: nil)
+        
+        return firstly(execute: { () -> Promise<(data: Data, response: URLResponse)> in
+            var params = [String: Any]()
+            if let limit = limit {
+                params["limit"] = limit
+            }
+            if let index = pageIndex {
+                params["page"] = index
+            }
+            if let min = minDate {
+                params["date_min"] = try ISOstring(from: min)
+            }
+            if let max = maxDate {
+                params["date_min"] = try ISOstring(from: max)
+            }
+            var urlString = baseGETURL+"correlations/"
+            if let attribute = attribute {
+                urlString += "attribute/\(attribute)/"
+            } else {
+                urlString += "strongest/"
+            }
+            return get(url: urlString, params: [String:Any](), queries: nil)
+        })
             .then(on: DispatchQueue.global(), flags: nil, { (arg) -> Promise<(correlations: [Correlation], response: URLResponse)> in
                 let (data, response) = arg
                 let decoder = JSONDecoder()

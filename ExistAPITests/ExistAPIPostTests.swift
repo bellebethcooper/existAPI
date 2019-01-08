@@ -35,7 +35,16 @@ class ExistAPIPostTests: XCTestCase {
     // must be acquired before it can be updated
     func testUpdate_Succeeds() {
         let expectation = XCTestExpectation()
-        self.api.update(attributes: [["value": 25, "name": "money_spent", "date": "2019-01-03"]])
+        let today = Date()
+        let tomorrow = Date().addingTimeInterval(TimeInterval(86000))
+        var todayComps = Calendar.autoupdatingCurrent.dateComponents([.year, .month, .day, .minute, .second], from: Date())
+        todayComps.day! -= 1
+        let yesterday = Calendar.autoupdatingCurrent.date(from: todayComps)
+        let todayUpdate = IntAttributeUpdate(name: "money_spent", date: today, value: 45)
+        let tomorrowUpdate = IntAttributeUpdate(name: "money_spent", date: tomorrow, value: 30)
+        let yestUpdate = IntAttributeUpdate(name: "money_spent", date: yesterday!, value: 15)
+        print("test today: \(todayUpdate.dictionaryRepresentation()?["date"]) tomo: \(tomorrowUpdate.dictionaryRepresentation()?["date"]), yest: \(yestUpdate.dictionaryRepresentation()?["date"])")
+        self.api.update(attributes: [todayUpdate, tomorrowUpdate, yestUpdate])
             .done { (attributeResponse, urlResponse) in
                 print("testUpdate_Succeeds - attributeResp: \(attributeResponse) urlResp: \(urlResponse)")
                 expectation.fulfill()
