@@ -57,9 +57,9 @@ extension ExistAPI {
         }
     }
     
-    public func update<T: AttributeUpdate>(attributes: [T]) -> Promise<(attributeResponse: AttributeUpdateResponse, response: URLResponse)> {
+    public func update(attributes: [AttributeUpdate]) -> Promise<(attributeResponse: AttributeUpdateResponse, response: URLResponse)> {
         
-        func JSON<T: AttributeUpdate>(from updates: [T]) throws -> Data {
+        func JSON(from updates: [AttributeUpdate]) throws -> Data {
             let array = try updates.compactMap({ (update) -> [String: Any]? in
                 try update.dictionaryRepresentation()
             })

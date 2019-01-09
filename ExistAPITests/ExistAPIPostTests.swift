@@ -32,8 +32,8 @@ class ExistAPIPostTests: XCTestCase {
         let todayComps = Calendar.autoupdatingCurrent.dateComponents([.year, .month, .day], from: Date())
         let date = Calendar.autoupdatingCurrent.date(from: todayComps)!
         let money = IntAttributeUpdate(name: "money_spent", date: date, value: 45)
-//        let caffeine = FloatAttributeUpdate(name: "caffeine", date: date, value: 14.5)
-        self.api.update(attributes: [money])
+        let caffeine = FloatAttributeUpdate(name: "caffeine", date: date, value: 14.5)
+        self.api.update(attributes: [money, caffeine])
             .done { (attributeResponse, urlResponse) in
                 print("testUpdate_Succeeds - attributeResp: \(attributeResponse) urlResp: \(urlResponse)")
                 expectation.fulfill()
