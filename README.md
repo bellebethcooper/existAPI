@@ -8,7 +8,7 @@ ExistAPI wraps the Exist API in promises (via `PromiseKit`) to make it easier to
 
 via Cocoapods:
 
-`pod 'ExistAPI', '~> 0.0.7'`
+`pod 'ExistAPI', '~> 0.0.13'`
 
 ## Quick examples
 
