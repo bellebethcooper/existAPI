@@ -121,6 +121,37 @@ struct Attribute: AttributeValues {
 public protocol AttributeValues {
     func getIntValues() throws -> [IntValue]
     func getStringValues() throws -> [StringValue]
+    func getFloatValues() throws -> [FloatValue]
+}
+```
+
+Each attribute uses the `AttributeValues` protocol to return its values as `Int`s, `String`s, or `Float`s. It's up to you to use the correct corresponding function depending on the value type of the attribute you're working with. All available attributes and their types can be found [here in the Exist API docs](http://developer.exist.io/#list-of-attributes).
+
+The value type models are as follows:
+
+```swift
+public protocol ValueObject {
+    associatedtype ValueType
+    var value: ValueType? { get }
+    var date: Date { get }
+}
+
+public struct IntValue: ValueObject {
+    public typealias ValueType = Int
+    public var value: Int?
+    public var date: Date
+}
+
+public struct StringValue: ValueObject {
+    public typealias ValueType = String
+    public var value: String?
+    public var date: Date
+}
+
+public struct FloatValue: ValueObject {
+    public typealias ValueType = Float
+    public var value: Float?
+    public var date: Date
 }
 ```
 
@@ -223,6 +254,8 @@ class User: Codable {
 
 ### POST requests
 
+Attributes must be owned by a service before they can be updated. To own an attribute, use the `acquire` function. Updating an attribute not owned by your client will fail. Read [more on attribute ownership in the Exist API docs](http://developer.exist.io/#attribute-ownership).
+
 ```swift
 public func acquire(names: [String]) -> Promise<(attributeResponse: AttributeResponse, response: URLResponse)>
 ```
@@ -247,9 +280,13 @@ public struct FailedAttribute: Codable {
 }
 ```
 
+To stop owning an attribute, use the `release` function:
+
 ```swift
 public func release(names: [String]) -> Promise<(attributeResponse: AttributeResponse, response: URLResponse)>
 ```
+
+Before using the `update` function, make sure you've read the [Exist API docs on acquiring and updating attributes](http://developer.exist.io/#updating-attribute-values).
 
 ```swift
 public func update<T: AttributeUpdate>(attributes: [T]) -> Promise<(attributeResponse: AttributeUpdateResponse, response: URLResponse)>
