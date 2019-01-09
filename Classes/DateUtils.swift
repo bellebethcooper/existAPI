@@ -14,7 +14,7 @@ enum DateError: Error {
 
 /// Creates string based on date in format "YYYY-mm-dd"
 ///
-/// - Parameter date: Date to be used for creating date string
+/// - Parameter date: Date to be used for creating date string. Should be created using local device timezone.
 public func ISOstring(from date: Date) throws -> String {
     guard let tomorrow = tomorrow(),
         date <= tomorrow else {

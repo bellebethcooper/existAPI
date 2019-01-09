@@ -23,6 +23,11 @@ public class ExistAPI {
     var token: String
     var timeout: TimeInterval
     
+    /// Create an instance of the ExistAPI class
+    ///
+    /// - Parameters:
+    ///   - token: An OAuth API token obtained from the Exist API (see details on authorisation in the API docs here: http://developer.exist.io/#authentication-overview)
+    ///   - timeout: Optional TimeInterval for all network requests. Default is 30.0
     public init(token: String,
                 timeout: TimeInterval = TimeInterval(30.0)) {
         self.token = token

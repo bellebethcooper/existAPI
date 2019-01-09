@@ -138,11 +138,11 @@
 			children = (
 				68D85FE121CDAD8B0055EF07 /* APIService.swift */,
 				68D85FE221CDAD8B0055EF07 /* APIService+GET.swift */,
+				68D85FEC21CDAD8B0055EF07 /* APIService+POST.swift */,
 				68D85FE321CDAD8B0055EF07 /* DateUtils.swift */,
-				68D85FE421CDAD8B0055EF07 /* Models */,
 				68D85FEA21CDAD8B0055EF07 /* ExistAPI.h */,
 				68D85FEB21CDAD8B0055EF07 /* Info.plist */,
-				68D85FEC21CDAD8B0055EF07 /* APIService+POST.swift */,
+				68D85FE421CDAD8B0055EF07 /* Models */,
 			);
 			path = Classes;
 			sourceTree = "<group>";

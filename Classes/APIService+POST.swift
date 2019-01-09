@@ -13,6 +13,10 @@ import PromiseKit
 // Post requests
 extension ExistAPI {
     
+    /// Acquire one or more attributes (Attributes MUST be acquired before they can be updated. See the docs for more detail: http://developer.exist.io/#attribute-ownership)
+    ///
+    /// - Parameter names: [String] including the names of the attributes to be acquired. Names must be spelled exactly as they are listed in the API docs, including underscores: http://developer.exist.io/#list-of-attributes)
+    /// - Returns: Promise<(attributeResponse: AttributeResponse, response: URLResponse)>. `AttributeResponse` includes optional `success` and `failed` arrays. If one or more attributes fails to be acquired, the API will return a 202, and the `failed` array will include details of what was sent and why it failed.
     public func acquire(names: [String]) -> Promise<(attributeResponse: AttributeResponse, response: URLResponse)> {
         let attributes = names.map { (name) -> [String: Any] in
             return ["name": name, "active": true]
@@ -30,6 +34,10 @@ extension ExistAPI {
             })
     }
     
+    /// Release one or more attributes so they're no longer owned by your client
+    ///
+    /// - Parameter names: [String] including the names of the attributes to be acquired. Names must be spelled exactly as they are listed in the API docs, including underscores: http://developer.exist.io/#list-of-attributes)
+    /// - Returns: Promise<(attributeResponse: AttributeResponse, response: URLResponse)>. `AttributeResponse` includes optional `success` and `failed` arrays. If one or more attributes fails to be released, the API will return a 202, and the `failed` array will include details of what was sent and why it failed.
     public func release(names: [String]) -> Promise<(attributeResponse: AttributeResponse, response: URLResponse)> {
         let attributes = names.map { (name) -> [String: Any] in
             return ["name": name, "active": true]
@@ -57,6 +65,10 @@ extension ExistAPI {
         }
     }
     
+    /// Update the value of one or more attributes
+    ///
+    /// - Parameter attributes: [AttributeUpdate]
+    /// - Returns: Promise<(attributeResponse: AttributeUpdateResponse, response: URLResponse)>. `AttributeUpdateResponse` includes optional `success` and `failed` arrays. If one or more attributes fails to be released, the API will return a 202, and the `failed` array will include details of what was sent and why it failed.
     public func update(attributes: [AttributeUpdate]) -> Promise<(attributeResponse: AttributeUpdateResponse, response: URLResponse)> {
         
         func JSON(from updates: [AttributeUpdate]) throws -> Data {

@@ -12,6 +12,7 @@ public protocol AttributeUpdate: Codable {
     func dictionaryRepresentation() throws -> [String: Any]?
 }
 
+/// Used for updating values for String-type attributes. See all available attributes and their value types [in the API docs](http://developer.exist.io/#list-of-attributes)
 public struct StringAttributeUpdate: AttributeUpdate {
     public var name: String
     public var date: Date
@@ -31,6 +32,7 @@ public struct StringAttributeUpdate: AttributeUpdate {
     
 }
 
+/// Used for updating values for Float-type attributes. See all available attributes and their value types [in the API docs](http://developer.exist.io/#list-of-attributes)
 public struct FloatAttributeUpdate: AttributeUpdate {
     public var name: String
     public var date: Date
@@ -49,6 +51,7 @@ public struct FloatAttributeUpdate: AttributeUpdate {
     }
 }
 
+/// Used for updating values for Int-type attributes. See all available attributes and their value types [in the API docs](http://developer.exist.io/#list-of-attributes)
 public struct IntAttributeUpdate: AttributeUpdate {
     public var name: String
     public var date: Date
