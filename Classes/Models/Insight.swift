@@ -9,18 +9,18 @@
 import Foundation
 
 public struct InsightResponse: Codable {
-    let count: Int
-    var next: String?
-    var previous: String?
-    let results: [Insight]
+    public let count: Int
+    public var next: String?
+    public var previous: String?
+    public let results: [Insight]
 }
 
 public struct Insight: Codable {
-    let created: Date
-    let targetDate: Date?
-    let type: InsightType
-    let html: String
-    let text: String
+    public let created: Date
+    public let targetDate: Date?
+    public let type: InsightType
+    public let html: String
+    public let text: String
     
     enum CodingKeys: CodingKey {
         case created, targetDate, type, html, text
@@ -45,15 +45,15 @@ public struct Insight: Codable {
 }
 
 public struct InsightType: Codable {
-    let name: String
-    let period: Int
-    let priority: Int
-    let attribute: InsightAttribute
+    public let name: String
+    public let period: Int
+    public let priority: Int
+    public let attribute: InsightAttribute
 }
 
 public struct InsightAttribute: Codable {
-    let name: String
-    let label: String
-    let group: AttributeGroup
-    let priority: Int
+    public let name: String
+    public let label: String
+    public let group: AttributeGroup
+    public let priority: Int
 }

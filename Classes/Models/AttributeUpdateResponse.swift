@@ -9,14 +9,14 @@
 import Foundation
 
 public struct AttributeUpdateResponse: Codable {
-    var success: [SuccessfullyUpdatedAttribute]?
-    var failed: [FailedToUpdateAttribute]?
+    public var success: [SuccessfullyUpdatedAttribute]?
+    public var failed: [FailedToUpdateAttribute]?
 }
 
 public struct SuccessfullyUpdatedAttribute: Codable {
-    var name: String
-    var date: Date
-    var value: String?
+    public var name: String
+    public var date: Date
+    public var value: String?
     
     enum CodingKeys: CodingKey {
         case name
@@ -40,11 +40,11 @@ public struct SuccessfullyUpdatedAttribute: Codable {
 }
 
 public struct FailedToUpdateAttribute: Codable {
-    var name: String?
-    var date: Date?
-    var value: String?
-    var errorCode: String
-    var error: String
+    public var name: String?
+    public var date: Date?
+    public var value: String?
+    public var errorCode: String
+    public var error: String
     
     enum CodingKeys: CodingKey {
         case name

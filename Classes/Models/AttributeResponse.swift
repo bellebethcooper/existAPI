@@ -9,17 +9,17 @@
 import Foundation
 
 public struct AttributeResponse: Codable {
-    var success: [SuccessfulAttribute]?
-    var failed: [FailedAttribute]?
+    public var success: [SuccessfulAttribute]?
+    public var failed: [FailedAttribute]?
 }
 
 public struct SuccessfulAttribute: Codable {
-    var name: String
-    var active: Bool?
+    public var name: String
+    public var active: Bool?
 }
 
 public struct FailedAttribute: Codable {
-    var name: String
-    var errorCode: String
-    var error: String
+    public var name: String
+    public var errorCode: String
+    public var error: String
 }

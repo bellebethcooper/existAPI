@@ -24,13 +24,13 @@ public enum ValueType {
 }
 
 public struct Attribute: AttributeValues {
-    let name: String
-    let label: String
-    let group: AttributeGroup
-    let priority: Int
-    let service: String
-    let valueType: ValueType
-    let valueTypeDescription: String
+    public let name: String
+    public let label: String
+    public let group: AttributeGroup
+    public let priority: Int
+    public let service: String
+    public let valueType: ValueType
+    public let valueTypeDescription: String
     private let values: [AttributeData]
     
     enum CodingKeys: String, CodingKey {
@@ -140,14 +140,14 @@ public struct FloatValue: ValueObject {
 }
 
 public struct AttributeGroup: Codable {
-    let name: String
-    let label: String
-    let priority: Int
+    public let name: String
+    public let label: String
+    public let priority: Int
 }
 
 public struct AttributeData: Codable {
-    var value: String?
-    let date: Date
+    public var value: String?
+    public let date: Date
     
     enum CodingKeys: CodingKey {
         case value

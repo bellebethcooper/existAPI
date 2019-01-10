@@ -9,20 +9,20 @@
 import Foundation
 
 public class User: Codable {
-    let id: Int
-    let username: String
-    let firstName: String
-    let lastName: String
-    let bio: String
-    let url: String
-    let avatar: String
-    let timezone: String
-    let imperialUnits: Bool
-    let imperialDistance: Bool
-    let imperialWeight: Bool
-    let imperialEnergy: Bool
-    let imperialLiquid: Bool
-    let imperialTemperature: Bool
-    let trial: Bool
-    let delinquent: Bool
+    public let id: Int
+    public let username: String
+    public let firstName: String
+    public let lastName: String
+    public let bio: String
+    public let url: String
+    public let avatar: String
+    public let timezone: String
+    public let imperialUnits: Bool
+    public let imperialDistance: Bool
+    public let imperialWeight: Bool
+    public let imperialEnergy: Bool
+    public let imperialLiquid: Bool
+    public let imperialTemperature: Bool
+    public let trial: Bool
+    public let delinquent: Bool
 }
